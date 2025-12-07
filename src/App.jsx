@@ -12,12 +12,16 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import ReportsPage from "./pages/ReportsPage";
 import ClientDetailPage from "./components/detail-pages/ClientDetailPage";
 import CompanyDetailPage from "./components/detail-pages/CompanyDetailPage";
+import SignInPage from "./pages/SignInPage"
+import RegisterPage from "./pages/RegisterPage"
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="clients" element={<ClientsPage />} />
@@ -28,6 +32,8 @@ function App() {
             <Route path="tasks" element={<TasksPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="reports" element={<ReportsPage />} />
+            <Route path="/signin" element={<SignInPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="settings" element={<h1>Settings Page</h1>} />
             <Route path="help" element={<h1>Help & Support</h1>} />
           </Route>
