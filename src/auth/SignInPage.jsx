@@ -174,7 +174,7 @@ const SignInPage = () => {
             <button
               onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
-              className="w-full  bg-[#2f362f]  text-white py-3 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full  bg-[#2f362f]  text-white py-2 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Signing in..." : "Sign in"}
             </button>
@@ -195,7 +195,7 @@ const SignInPage = () => {
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-3 py-3 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all"
+              className="w-full flex items-center justify-center gap-3 py-2 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
