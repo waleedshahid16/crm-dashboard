@@ -1031,7 +1031,7 @@ const SettingsPage = () => {
       {/* Main Content - Stack on mobile, side-by-side on desktop */}
       <div className="flex flex-col lg:grid lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Sidebar Navigation - Horizontal scroll on mobile, vertical on desktop */}
-        <div className="lg:col-span-1 order-first lg:order-none">
+        <div className="lg:col-span-1 order-first lg:order-0">
           {/* Mobile horizontal tabs */}
           <div className="lg:hidden overflow-x-auto pb-2 -mx-2 px-2">
             <div className="flex gap-2 min-w-max">
