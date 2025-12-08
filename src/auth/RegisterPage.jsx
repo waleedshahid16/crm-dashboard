@@ -147,7 +147,7 @@ const RegisterPage = () => {
                   type="text"
                   {...register("fullName")}
                   placeholder="John Doe"
-                  className={`w-full pl-11 pr-4 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-4 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.fullName ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
@@ -170,7 +170,7 @@ const RegisterPage = () => {
                   type="email"
                   {...register("email")}
                   placeholder="Enter your email"
-                  className={`w-full pl-11 pr-4 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-4 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.email ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
@@ -193,7 +193,7 @@ const RegisterPage = () => {
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="••••••••••"
-                  className={`w-full pl-11 pr-12 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-12 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.password ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
@@ -251,7 +251,7 @@ const RegisterPage = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   {...register("confirmPassword")}
                   placeholder="••••••••••"
-                  className={`w-full pl-11 pr-12 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-12 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.confirmPassword
                       ? "border-red-500"
                       : "border-[#BCC8BC]"
@@ -316,7 +316,7 @@ const RegisterPage = () => {
             <button
               onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
-              className="w-full  bg-[#2f362f]  text-white py-2.5 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full  bg-[#2f362f]  text-white py-2 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Creating Account..." : "Create Account"}
             </button>
@@ -337,7 +337,7 @@ const RegisterPage = () => {
             <button
               type="button"
               onClick={handleGoogleSignUp}
-              className="w-full flex items-center justify-center gap-3 py-2.5 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all"
+              className="w-full flex items-center justify-center gap-3 py-2 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path

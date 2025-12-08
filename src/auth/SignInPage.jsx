@@ -105,7 +105,7 @@ const SignInPage = () => {
                   type="email"
                   {...register("email")}
                   placeholder="Enter your email"
-                  className={`w-full pl-11 pr-4 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-4 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.email ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
@@ -128,7 +128,7 @@ const SignInPage = () => {
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="••••••••••"
-                  className={`w-full pl-11 pr-12 py-2.5 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-11 pr-12 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.password ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />

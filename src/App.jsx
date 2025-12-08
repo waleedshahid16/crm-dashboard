@@ -10,6 +10,7 @@ import DealsPage from "./pages/DealsPage";
 import TasksPage from "./pages/TasksPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ReportsPage from "./pages/ReportsPage";
+import SettingsPage from "./pages/SettingsPage";
 import ClientDetailPage from "./components/detail-pages/ClientDetailPage";
 import CompanyDetailPage from "./components/detail-pages/CompanyDetailPage";
 import SignInPage from "./auth/SignInPage"
@@ -34,7 +35,7 @@ function App() {
             <Route path="reports" element={<ReportsPage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="settings" element={<h1>Settings Page</h1>} />
+            <Route path="settings" element={<SettingsPage />} />
             <Route path="help" element={<h1>Help & Support</h1>} />
           </Route>
         </Routes>
