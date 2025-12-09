@@ -164,6 +164,7 @@ const DealsPage = () => {
 
           {/* Search and Filter - Stack on mobile, row with justify-between on tablet+ */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-3">
+            {/* Search - full width on mobile, auto on tablet+ */}
             <div className="relative w-full md:w-auto">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f] cursor-pointer" />
               <input
@@ -174,11 +175,12 @@ const DealsPage = () => {
                 className="pl-9 sm:pl-10 pr-4 py-2 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full md:w-48 lg:w-64 text-sm"
               />
             </div>
-            <div className="flex gap-2 sm:gap-3">
+            {/* Filters and Add button - row on all sizes */}
+            <div className="flex items-center justify-between md:justify-end gap-2 sm:gap-3">
               <select
                 value={filterStage}
                 onChange={(e) => dispatch(setFilterStage(e.target.value))}
-                className="px-2 sm:px-2.5 py-2 border border-[#BCC8BC] rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm flex-1 sm:flex-none"
+                className="px-2 sm:px-2.5 py-2 border border-[#BCC8BC] rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               >
                 <option value="All">All Stages</option>
                 {dealStages.map((stage) => (
@@ -206,13 +208,13 @@ const DealsPage = () => {
           return (
             <div
               key={deal.id}
-              className="bg-[#FEFDFC] rounded-xl p-4 sm:p-5 lg:p-6 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
+              className="bg-[#FEFDFC] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
               onClick={(e) => openDealEdit(deal, e)}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3 flex-1">
-                  <div className="w-12 h-12 rounded-xl bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] shadow-md shrink-0">
+                  <div className="w-14 h-14 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] shadow-md shrink-0">
                     <Handshake className="w-6 h-6" />
                   </div>
                   <div className="min-w-0">

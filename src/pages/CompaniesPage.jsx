@@ -161,19 +161,21 @@ const CompaniesPage = () => {
               </p>
             </div>
 
-            {/* Search, Filter and Add button - all in one row */}
-            <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
-              <div className="relative">
+            {/* Search, Filter and Add button */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 sm:gap-3">
+              {/* Search - full width on mobile, auto on tablet+ */}
+              <div className="relative w-full md:w-auto">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f] cursor-pointer" />
                 <input
                   type="text"
                   placeholder="Search companies..."
                   value={searchTerm}
                   onChange={(e) => dispatch(setSearchTerm(e.target.value))}
-                  className="pl-9 sm:pl-10 pr-4 py-2 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-44 sm:w-48 lg:w-64 text-sm"
+                  className="pl-9 sm:pl-10 pr-4 py-2 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full md:w-48 lg:w-64 text-sm"
                 />
               </div>
-              <div className="flex items-center gap-2 sm:gap-3">
+              {/* Filters and Add button - row on all sizes */}
+              <div className="flex items-center justify-between md:justify-end gap-2 sm:gap-3">
                 <select
                   value={filterIndustry}
                   onChange={(e) => dispatch(setFilterIndustry(e.target.value))}
@@ -211,7 +213,7 @@ const CompaniesPage = () => {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div
-                    className={`w-16 h-16 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-xl shadow-md`}
+                    className={`w-14 h-14 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-xl shadow-md`}
                   >
                     {company.logo || <Building2 className="w-8 h-8" />}
                   </div>
