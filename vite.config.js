@@ -6,22 +6,30 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            return "vendor"; // All dependencies in one vendor chunk
-          }
-
-          // Example: split big libraries if you have them
-          if (id.includes("react-router")) return "router";
-          if (id.includes("chart.js")) return "charts";
-          if (id.includes("lucide-react")) return "icons";
-
-          return null;
+        manualChunks: {
+          // Split vendor chunks for better caching
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "redux-vendor": ["react-redux", "@reduxjs/toolkit"],
+          "ui-vendor": ["lucide-react"],
+          "chart-vendor": ["recharts"],
         },
       },
     },
-
-    // (Optional) Increase chunk warning limit
-    chunkSizeWarningLimit: 1000, // from 500 KB → 1000 KB
+    // Minification settings
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs in production
+        drop_debugger: true,
+      },
+    },
+    // Increase chunk warning limit
+    chunkSizeWarningLimit: 1000,
+    // Enable source maps for debugging (optional)
+    sourcemap: false,
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ["react", "react-dom", "react-router-dom", "react-redux", "@reduxjs/toolkit"],
   },
 });
