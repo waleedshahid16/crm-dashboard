@@ -13,6 +13,7 @@ import {
   BarChart3,
   Target,
 } from "lucide-react";
+import SignInImg from "../assets/sign-in-pic/crm.webp"
 
 // Validation Schema for Sign In
 const signInSchema = yup
@@ -236,7 +237,7 @@ const SignInPage = () => {
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#2f362f]">
         {/* CRM Image - Full coverage */}
         <img
-          src="/src/assets/sign-in-pic/crm.webp"
+          src={SignInImg}
           alt="CRM Dashboard"
           className="w-full h-full object-cover"
         />
