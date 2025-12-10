@@ -200,7 +200,7 @@ const CompaniesPage = () => {
           </div>
         </div>
 
-        {/* Company Cards Grid - Responsive 1 to 4 columns */}
+        {/* Company Cards Grid - 1 column on mobile, 2 on tablet, 3-4 on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
           {companies.map((company) => {
             const colors =
@@ -208,18 +208,18 @@ const CompaniesPage = () => {
             return (
               <div
                 key={company.id}
-                className="bg-[#f8faf9] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="bg-[#f8faf9] rounded-lg p-3 sm:p-4 lg:p-5 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
                 onClick={() => openCompanyDetail(company)}
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-2 sm:mb-4">
                   <div
-                    className={`w-14 h-14 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-xl shadow-md`}
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-base sm:text-lg shadow-md`}
                   >
-                    {company.logo || <Building2 className="w-8 h-8" />}
+                    {company.logo || <Building2 className="w-5 h-5 sm:w-6 sm:h-6" />}
                   </div>
 
                   <span
-                    className={`px-3 py-1 rounded-md text-xs font-semibold ${colors.light} ${colors.text}`}
+                    className={`px-2 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-xs font-semibold ${colors.light} ${colors.text}`}
                   >
                     {company.industry}
                   </span>

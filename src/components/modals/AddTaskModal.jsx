@@ -175,21 +175,21 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-[#f8faf9] rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-[#f8faf9] rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-2xl my-4 sm:my-8 max-h-[calc(100vh-2rem)] sm:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Gradient Header */}
-        <div className="bg-blue-200 p-6 text-[#2f362f]">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="bg-blue-200 p-4 sm:p-6 text-[#2f362f]">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
               {/* Task Icon */}
-              <div className="w-14 h-14 rounded-full border-3 border-[#2f362f] flex items-center justify-center">
-                <CheckSquare className="w-7 h-7" />
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 sm:border-3 border-[#2f362f] flex items-center justify-center flex-shrink-0">
+                <CheckSquare className="w-5 h-5 sm:w-7 sm:h-7" />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold">
+              <div className="min-w-0">
+                <h2 className="text-xl sm:text-2xl font-bold truncate">
                   {isEdit ? "Edit Task" : "Add New Task"}
                 </h2>
-                <p className="text-sm opacity-90 mt-1">
+                <p className="text-xs sm:text-sm opacity-90 mt-0.5 sm:mt-1 truncate">
                   {isEdit
                     ? "Update task information"
                     : "Create a new task and assign it"}
@@ -198,9 +198,9 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
             <button
               onClick={handleClose}
-              className="p-1.5 hover:bg-white/20 rounded-md transition-colors"
+              className="p-1.5 hover:bg-white/20 rounded-md transition-colors flex-shrink-0"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
@@ -208,12 +208,12 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
         {/* Content */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex-1 overflow-y-auto p-6 bg-[#FEFDFC]"
+          className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 bg-[#FEFDFC]"
         >
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* Title */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Title <span className="text-red-500">*</span>
               </label>
               <Controller
@@ -224,7 +224,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <input
                       {...field}
                       placeholder="Enter task title"
-                      className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-2.5 py-1.5 sm:py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                         errors.title ? "border-red-500" : "border-[#BCC8BC]"
                       }`}
                     />
@@ -240,7 +240,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
             {/* Category */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Category <span className="text-red-500">*</span>
               </label>
               <Controller
@@ -250,7 +250,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                   <div>
                     <select
                       {...field}
-                      className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-full px-2.5 py-1.5 sm:py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                         errors.category ? "border-red-500" : "border-[#BCC8BC]"
                       }`}
                     >
@@ -273,7 +273,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
             {/* Responsible Persons */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Responsible Persons <span className="text-red-500">*</span>
               </label>
               <Controller
@@ -282,38 +282,51 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                 render={({ field }) => (
                   <div>
                     <div className="space-y-2">
-                      <select
-                        value={personInput}
-                        onChange={(e) => {
-                          const person = e.target.value;
-                          if (person) {
-                            handleAddPerson(person);
-                          }
-                        }}
-                        className="w-full px-2.5 py-2 border border-[#BCC8BC] rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      >
-                        <option value="">Select person to add</option>
-                        {availablePersons.map((person) => (
-                          <option key={person} value={person}>
-                            {person}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <select
+                          value={personInput}
+                          onChange={(e) => {
+                            const person = e.target.value;
+                            if (person) {
+                              handleAddPerson(person);
+                            }
+                          }}
+                          className="flex-1 text-sm sm:text-base px-2.5 py-1.5 sm:py-2 border border-[#BCC8BC] rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        >
+                          <option value="">Select person to add</option>
+                          {availablePersons.map((person) => (
+                            <option key={person} value={person}>
+                              {person}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => personInput && handleAddPerson(personInput)}
+                          className="px-3 py-1.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md text-sm sm:text-base font-medium hover:bg-blue-300 transition-colors whitespace-nowrap"
+                        >
+                          Add
+                        </button>
+                      </div>
                       {responsiblePersons.length > 0 && (
                         <div className="flex flex-wrap gap-2">
                           {responsiblePersons.map((person) => (
                             <span
                               key={person}
-                              className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs sm:text-sm"
                             >
-                              <User className="w-3 h-3" />
-                              {person}
+                              <User className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                              <span className="truncate max-w-[120px] sm:max-w-[180px]">{person}</span>
                               <button
                                 type="button"
-                                onClick={() => handleDeletePerson(person)}
-                                className="hover:text-blue-900"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeletePerson(person);
+                                }}
+                                className="text-blue-600 hover:text-blue-900 ml-0.5"
+                                aria-label={`Remove ${person}`}
                               >
-                                <X className="w-3 h-3" />
+                                <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                               </button>
                             </span>
                           ))}
@@ -331,10 +344,10 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Start Date and Due Date */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Start Date */}
               <div>
-                <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                   Start Date <span className="text-red-500">*</span>
                 </label>
                 <Controller
@@ -342,14 +355,14 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                   control={control}
                   render={({ field }) => (
                     <div>
-                      <div className="flex items-center gap-2 px-2.5 py-2 border rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all border-[#BCC8BC] bg-white">
-                        <Calendar className="w-5 h-5 text-green-500" />
+                      <div className="flex items-center gap-2 px-2.5 py-1.5 sm:py-2 border rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all border-[#BCC8BC] bg-white">
+                        <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 flex-shrink-0" />
                         <input
                           {...field}
                           type="date"
                           value={field.value || ""}
                           placeholder="dd/mm/yyyy"
-                          className="flex-1 border-none outline-none bg-transparent"
+                          className="flex-1 min-w-0 border-none outline-none bg-transparent text-xs sm:text-sm"
                         />
                       </div>
                       {errors.startDate && (
@@ -364,7 +377,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
               {/* Due Date */}
               <div>
-                <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                   Due Date <span className="text-red-500">*</span>
                 </label>
                 <Controller
@@ -372,14 +385,14 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                   control={control}
                   render={({ field }) => (
                     <div>
-                      <div className="flex items-center gap-2 px-2.5 py-2 border rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all border-[#BCC8BC] bg-white">
-                        <Calendar className="w-5 h-5 text-red-500" />
+                      <div className="flex items-center gap-2 px-2.5 py-1.5 sm:py-2 border rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all border-[#BCC8BC] bg-white">
+                        <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 flex-shrink-0" />
                         <input
                           {...field}
                           type="date"
                           value={field.value || ""}
                           placeholder="dd/mm/yyyy"
-                          className="flex-1 border-none outline-none bg-transparent"
+                          className="flex-1 min-w-0 border-none outline-none bg-transparent text-xs sm:text-sm"
                         />
                       </div>
                       {errors.dueDate && (
@@ -395,31 +408,58 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
             {/* Tags */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Tags
               </label>
               <div className="space-y-2">
-                <input
-                  value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
-                  onKeyDown={handleAddTag}
-                  placeholder="Enter value separated by comma"
-                  className="w-full px-2.5 py-2 border border-[#BCC8BC] rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                />
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ',') {
+                        e.preventDefault();
+                        const tag = tagInput.trim().replace(/,/g, '');
+                        if (tag) {
+                          if (!tags.includes(tag)) {
+                            setValue('tags', [...tags, tag]);
+                          }
+                          setTagInput('');
+                        }
+                      }
+                    }}
+                    placeholder="Type and press Enter or , to add"
+                    className="flex-1 text-sm sm:text-base px-2.5 py-1.5 sm:py-2 border border-[#BCC8BC] rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const tag = tagInput.trim();
+                      if (tag && !tags.includes(tag)) {
+                        setValue('tags', [...tags, tag]);
+                        setTagInput('');
+                      }
+                    }}
+                    className="px-3 py-1.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md text-sm sm:text-base font-medium hover:bg-blue-300 transition-colors whitespace-nowrap"
+                  >
+                    Add Tag
+                  </button>
+                </div>
                 {tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1 px-3 py-1 bg-[#FEFDFC] text-[#2f362f] rounded text-sm"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#F0F2F5] text-[#2f362f] rounded-full text-xs sm:text-sm"
                       >
                         {tag}
                         <button
                           type="button"
                           onClick={() => handleDeleteTag(tag)}
-                          className="hover:text-slate-900"
+                          className="text-slate-500 hover:text-slate-800 ml-0.5"
+                          aria-label={`Remove ${tag}`}
                         >
-                          <X className="w-3 h-3" />
+                          <X className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         </button>
                       </span>
                     ))}
@@ -429,10 +469,10 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Priority and Status */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Priority */}
               <div>
-                <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                   Priority <span className="text-red-500">*</span>
                 </label>
                 <Controller
@@ -442,18 +482,47 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-1.5 sm:py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                           errors.priority
                             ? "border-red-500"
                             : "border-[#BCC8BC]"
                         }`}
                       >
-                        <option value="">Select</option>
-                        {priorities.map((priority) => (
-                          <option key={priority} value={priority}>
-                            {priority}
-                          </option>
-                        ))}
+                        <option value="">Select Priority</option>
+                        {priorities.map((priority) => {
+                          let icon;
+                          let color;
+                          
+                          switch(priority) {
+                            case 'Urgent':
+                              icon = <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" />;
+                              color = 'text-red-500';
+                              break;
+                            case 'High':
+                              icon = <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-500" />;
+                              color = 'text-orange-500';
+                              break;
+                            case 'Medium':
+                              icon = <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-500" />;
+                              color = 'text-yellow-500';
+                              break;
+                            case 'Low':
+                              icon = <AlertCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500" />;
+                              color = 'text-green-500';
+                              break;
+                            default:
+                              icon = null;
+                          }
+                          
+                          return (
+                            <option key={priority} value={priority} className={color}>
+                              <div className="flex items-center gap-2">
+                                {icon}
+                                <span>{priority}</span>
+                              </div>
+                            </option>
+                          );
+                        })}
                       </select>
                       {errors.priority && (
                         <p className="text-xs text-red-500 mt-1">
@@ -467,7 +536,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
               {/* Status */}
               <div>
-                <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                   Status <span className="text-red-500">*</span>
                 </label>
                 <Controller
@@ -477,11 +546,11 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-1.5 sm:py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                           errors.status ? "border-red-500" : "border-[#BCC8BC]"
                         }`}
                       >
-                        <option value="">Select</option>
+                        <option value="">Select Status</option>
                         {statuses.map((status) => (
                           <option key={status} value={status}>
                             {status}
@@ -501,7 +570,7 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Description <span className="text-red-500">*</span>
               </label>
               <Controller
@@ -512,18 +581,25 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <textarea
                       {...field}
                       placeholder="Enter task description..."
-                      rows={6}
-                      className={`w-full px-2.5 py-3 border rounded-md resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      rows={4}
+                      className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all min-h-[100px] ${
                         errors.description
                           ? "border-red-500"
                           : "border-[#BCC8BC]"
                       }`}
                     />
-                    {errors.description && (
-                      <p className="text-xs text-red-500 mt-1">
-                        {errors.description.message}
-                      </p>
-                    )}
+                    <div className="flex justify-between items-center mt-1">
+                      {errors.description ? (
+                        <p className="text-xs text-red-500">
+                          {errors.description.message}
+                        </p>
+                      ) : (
+                        <div></div>
+                      )}
+                      <span className="text-xs text-gray-500">
+                        {field.value?.length || 0}/1000
+                      </span>
+                    </div>
                   </div>
                 )}
               />
@@ -532,30 +608,30 @@ const AddTaskModal = ({ open, onClose, initialData = null, mode = "add" }) => {
         </form>
 
         {/* Footer with Action Buttons */}
-        <div className="p-6 bg-white border-t border-slate-200">
-          <div className="flex items-center justify-end gap-3">
+        <div className="p-4 sm:p-6 bg-white border-t border-slate-200">
+          <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3">
             <button
               type="button"
               onClick={handleClose}
-              className="px-2.5 py-2 border border-[#BCC8BC] text-[#2f362f] rounded-md hover:bg-slate-50 transition-colors font-medium text-sm"
+              className="w-full sm:w-auto px-4 py-2.5 sm:py-2 border border-[#BCC8BC] text-[#2f362f] rounded-md hover:bg-slate-50 active:bg-slate-100 transition-colors font-medium text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
-              type="submit"
+              type="button"
               onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
-              className="px-2.5 py-2 bg-blue-200 text-[#2f362f] border-[#BCC8BC] rounded-md transition-all font-medium shadow-lg shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 hover:opacity-90 text-sm"
+              className="w-full sm:w-auto px-4 py-2.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md transition-all font-medium shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:opacity-90 active:opacity-100 text-sm sm:text-base"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-[#BCC8BC] rounded-full animate-spin"></div>
-                  Saving...
+                  <div className="w-4 h-4 border-2 border-[#2f362f] border-t-transparent rounded-full animate-spin"></div>
+                  <span>Saving...</span>
                 </>
               ) : (
                 <>
-                  <CheckSquare className="w-4 h-4" />
-                  {isEdit ? "Update" : "Create"}
+                  <CheckSquare className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <span>{isEdit ? "Update Task" : "Create Task"}</span>
                 </>
               )}
             </button>

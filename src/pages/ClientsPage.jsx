@@ -193,16 +193,16 @@ const ClientsPage = () => {
         </div>
       </div>
 
-      {/* Client Cards Grid - Responsive 1 to 4 columns */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
+      {/* Client Cards Grid - 2 columns on mobile/tablet, 3-4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
         {clients.map((client) => (
           <div
             key={client.id}
-            className="bg-[#FEFDFC] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm border border-[#BCC8BC] transition-all duration-300 group cursor-pointer"
+            className="bg-[#FEFDFC] rounded-lg p-3 sm:p-4 lg:p-5 shadow-sm border border-[#BCC8BC] transition-all duration-300 group cursor-pointer"
             onClick={() => openClientDetail(client)}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-14 h-14 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-2xl shadow-md">
+            <div className="flex items-start justify-between mb-2 sm:mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-lg sm:text-xl shadow-md">
                 {client.name.charAt(0)}
               </div>
               <span

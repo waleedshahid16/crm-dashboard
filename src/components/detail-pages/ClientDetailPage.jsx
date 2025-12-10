@@ -27,6 +27,7 @@ import {
 } from "../../store/slices/clientsSlice";
 import { selectAllDeals } from "../../store/slices/dealsSlice";
 import { selectAllTasks } from "../../store/slices/tasksSlice";
+import AddUserModal from "../modals/AddUserModal";
 
 // Delete Confirmation Dialog Component
 const DeleteConfirmDialog = ({ isOpen, onClose, onConfirm, clientName }) => {
@@ -90,6 +91,7 @@ const ClientDetailPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const clients = useSelector(selectedAllClients);
   const allDeals = useSelector(selectAllDeals);
@@ -166,55 +168,55 @@ const ClientDetailPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-[#f8faf9]">
+      <div className="min-h-screen bg-[#FEFDFC]">
         {/* Sticky Header */}
-        <div className="bg-[#FEFDFC] border-b border-[#BCC8BC] sticky top-0 z-10 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between flex-wrap gap-4">
-              <div className="flex items-center gap-4">
+        <div className="bg-white border-b border-[#BCC8BC] sticky top-0 z-10 shadow-sm">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
+            <div className="flex items-start sm:items-center justify-between flex-wrap gap-3">
+              <div className="flex items-start sm:items-center gap-2 sm:gap-4 flex-1 min-w-0">
                 <button
                   onClick={() => navigate("/clients")}
-                  className="p-2 hover:bg-[#f8faf9] rounded-md transition-colors"
+                  className="p-1.5 sm:p-2 hover:bg-slate-100 rounded-lg transition-colors flex-shrink-0 mt-0.5 sm:mt-0"
                   title="Back to Clients"
                 >
                   <ArrowLeft className="w-5 h-5 text-[#2f362f]" />
                 </button>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-lg shadow-lg">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0">
                     {client.avatar ? (
                       <img
                         src={client.avatar}
                         alt={client.name}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover rounded-full"
                       />
                     ) : (
                       client.name.charAt(0)
                     )}
                   </div>
-                  <div>
-                    <h1 className="text-2xl font-bold text-[#2f362f]">
+                  <div className="min-w-0">
+                    <h1 className="text-lg sm:text-2xl font-bold text-[#2f362f] truncate">
                       {client.name}
                     </h1>
-                    <p className="text-sm text-[#2f362f]/70">
+                    <p className="text-xs sm:text-sm text-[#2f362f] truncate">
                       {client.jobTitle || client.position} at {client.company}
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
                 <button
-                  onClick={() => navigate(`/clients`)}
-                  className="px-2.5 py-2 bg-[#2f362f] text-white rounded-md font-semibold hover:bg-[#1f261f] transition-colors flex items-center gap-2"
+                  onClick={() => setShowEditModal(true)}
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 bg-[#2f362f] text-white rounded-lg font-semibold hover:bg-[#1f261f] transition-colors text-sm sm:text-base"
                 >
                   <Edit className="w-4 h-4" />
-                  Edit
+                  <span>Edit</span>
                 </button>
                 <button
                   onClick={() => setShowDeleteDialog(true)}
-                  className="px-2.5 py-2 border-2 border-red-300 text-red-600 rounded-md font-semibold hover:bg-red-50 transition-colors flex items-center gap-2"
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2 border-2 border-red-300 text-red-600 rounded-lg font-semibold hover:bg-red-50 transition-colors text-sm sm:text-base"
                 >
                   <Trash2 className="w-4 h-4" />
-                  Delete
+                  <span>Delete</span>
                 </button>
               </div>
             </div>
@@ -222,11 +224,11 @@ const ClientDetailPage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
           {/* Status Badge */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <span
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold ${
+              className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold ${
                 client.status === "Customer"
                   ? "bg-green-100 text-green-700"
                   : client.status === "Active"
@@ -239,7 +241,7 @@ const ClientDetailPage = () => {
               }`}
             >
               <div
-                className={`w-2 h-2 rounded-full ${
+                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
                   client.status === "Customer"
                     ? "bg-green-500"
                     : client.status === "Active"
@@ -256,82 +258,82 @@ const ClientDetailPage = () => {
           </div>
 
           {/* Key Metrics Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-            <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#FEFDFC] flex items-center justify-center">
-                  <Briefcase className="w-6 h-6 text-blue-600" />
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
+            <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                 </div>
-                <span className="text-xs font-semibold text-blue-600 bg-[#FEFDFC] px-2 py-1 rounded-full">
+                <span className="text-[10px] sm:text-xs font-medium text-blue-600 bg-blue-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full whitespace-nowrap">
                   +{metrics.activeDeals} Active
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#2f362f] mb-1">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2f362f] mb-0.5 sm:mb-1">
                 {metrics.totalDeals}
               </p>
-              <p className="text-sm text-[#2f362f]/70">Total Deals</p>
+              <p className="text-xs sm:text-sm text-[#2f362f]/70">Total Deals</p>
             </div>
 
-            <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#FEFDFC] flex items-center justify-center">
-                  <DollarSign className="w-6 h-6 text-green-600" />
+            <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-green-50 flex items-center justify-center flex-shrink-0">
+                  <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                 </div>
-                <span className="text-xs font-semibold text-green-600 bg-[#FEFDFC] px-2 py-1 rounded-full">
+                <span className="text-[10px] sm:text-xs font-medium text-green-600 bg-green-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
                   Pipeline
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#2f362f] mb-1">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2f362f] mb-0.5 sm:mb-1">
                 {metrics.pipelineValue}
               </p>
-              <p className="text-sm text-[#2f362f]/70">Value</p>
+              <p className="text-xs sm:text-sm text-[#2f362f]/70">Value</p>
             </div>
 
-            <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#FEFDFC] flex items-center justify-center">
-                  <Target className="w-6 h-6 text-purple-600" />
+            <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
+                  <Target className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                 </div>
-                <span className="text-xs font-semibold text-purple-600 bg-[#FEFDFC] px-2 py-1 rounded-full">
+                <span className="text-[10px] sm:text-xs font-medium text-purple-600 bg-purple-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
                   Won
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#2f362f] mb-1">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2f362f] mb-0.5 sm:mb-1">
                 {metrics.wonDeals}
               </p>
-              <p className="text-sm text-[#2f362f]/70">Deals Won</p>
+              <p className="text-xs sm:text-sm text-[#2f362f]/70">Deals Won</p>
             </div>
 
-            <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-[#FEFDFC] flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-yellow-600" />
+            <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 border border-[#BCC8BC] shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-yellow-50 flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
                 </div>
-                <span className="text-xs font-semibold text-yellow-600 bg-[#FEFDFC] px-2 py-1 rounded-full">
+                <span className="text-[10px] sm:text-xs font-medium text-yellow-600 bg-yellow-50 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
                   {metrics.completedTasks} Done
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#2f362f] mb-1">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2f362f] mb-0.5 sm:mb-1">
                 {metrics.openTasks}
               </p>
-              <p className="text-sm text-[#2f362f]/70">Open Tasks</p>
+              <p className="text-xs sm:text-sm text-[#2f362f]/70">Open Tasks</p>
             </div>
           </div>
 
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
             {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6">
               {/* Client Overview Card */}
-              <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                <h2 className="text-xl font-bold text-[#2f362f] mb-6 flex items-center gap-2">
-                  <User className="w-5 h-5 text-[#2f362f]/70" />
-                  Client Overview
+              <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-4 sm:mb-6 flex items-center gap-2">
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                  <span>Client Overview</span>
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                   {/* Contact Info */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-[#2f362f] uppercase tracking-wide mb-3">
+                  <div className="space-y-3 sm:space-y-4">
+                    <h3 className="text-xs sm:text-sm font-semibold text-[#2f362f] uppercase tracking-wide mb-2 sm:mb-3">
                       Contact Information
                     </h3>
                     {client.email && (
@@ -400,8 +402,8 @@ const ClientDetailPage = () => {
                   </div>
 
                   {/* Professional Details */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-[#2f362f] uppercase tracking-wide mb-3">
+                  <div className="space-y-3 sm:space-y-4 mt-4 sm:mt-0">
+                    <h3 className="text-xs sm:text-sm font-semibold text-[#2f362f] uppercase tracking-wide mb-2 sm:mb-3">
                       Professional Details
                     </h3>
                     {client.company && (
@@ -470,10 +472,10 @@ const ClientDetailPage = () => {
 
               {/* Lead Score */}
               {client.leadScore !== undefined && (
-                <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                  <h2 className="text-xl font-bold text-[#2f362f] mb-4 flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-[#2f362f]/70" />
-                    Lead Score
+                <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-3 sm:mb-4 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                    <span>Lead Score</span>
                   </h2>
                   <div className="flex items-center gap-4">
                     <div className="flex-1">
@@ -512,10 +514,10 @@ const ClientDetailPage = () => {
 
               {/* Reviews */}
               {client.reviews > 0 && (
-                <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                  <h2 className="text-xl font-bold text-[#2f362f] mb-4 flex items-center gap-2">
-                    <Award className="w-5 h-5 text-[#2f362f]/70" />
-                    Reviews
+                <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-3 sm:mb-4 flex items-center gap-2">
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                    <span>Reviews</span>
                   </h2>
                   <div className="flex items-center gap-2">
                     {[...Array(5)].map((_, i) => (
@@ -537,10 +539,10 @@ const ClientDetailPage = () => {
 
               {/* Description */}
               {client.description && (
-                <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                  <h2 className="text-xl font-bold text-[#2f362f] mb-4 flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#2f362f]/70" />
-                    Description
+                <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-3 sm:mb-4 flex items-center gap-2">
+                    <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                    <span>Description</span>
                   </h2>
                   <p className="text-[#2f362f] leading-relaxed">
                     {client.description}
@@ -550,10 +552,10 @@ const ClientDetailPage = () => {
 
               {/* Tags */}
               {client.tags && client.tags.length > 0 && (
-                <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                  <h2 className="text-xl font-bold text-[#2f362f] mb-4 flex items-center gap-2">
-                    <Tag className="w-5 h-5 text-[#2f362f]/70" />
-                    Tags
+                <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-3 sm:mb-4 flex items-center gap-2">
+                    <Tag className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                    <span>Tags</span>
                   </h2>
                   <div className="flex flex-wrap gap-2">
                     {client.tags.map((tag, index) => (
@@ -570,12 +572,12 @@ const ClientDetailPage = () => {
             </div>
 
             {/* Right Column - Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Activity Timeline */}
-              <div className="bg-[#FEFDFC] rounded-lg p-6 border border-[#BCC8BC] shadow-sm">
-                <h2 className="text-xl font-bold text-[#2f362f] mb-6 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-[#2f362f]/70" />
-                  Timeline
+              <div className="bg-white rounded-xl p-4 sm:p-6 border border-[#BCC8BC] shadow-sm">
+                <h2 className="text-lg sm:text-xl font-bold text-[#2f362f] mb-4 sm:mb-6 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]/70 flex-shrink-0" />
+                  <span>Timeline</span>
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -655,6 +657,14 @@ const ClientDetailPage = () => {
         onClose={() => setShowDeleteDialog(false)}
         onConfirm={handleDelete}
         clientName={client.name}
+      />
+
+      {/* Edit Client Modal */}
+      <AddUserModal
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        mode="edit"
+        initialData={client}
       />
     </>
   );

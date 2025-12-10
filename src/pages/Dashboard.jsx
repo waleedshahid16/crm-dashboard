@@ -57,8 +57,8 @@ const Dashboard = () => {
         </p>
       </div>
 
-      {/* Stats Grid - Responsive from 1 to 3 columns */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6 lg:mb-8">
+      {/* Stats Grid - 2 columns on mobile, 3 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6 lg:mb-8">
         <StatsCard
           title="Total Clients"
           number={totalClients.total}

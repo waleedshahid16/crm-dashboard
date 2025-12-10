@@ -14,7 +14,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   AreaChart,
-  Area
+  Area,
+  Legend
 } from "recharts";
 import {
   TrendingUp,
@@ -41,6 +42,21 @@ const AnalyticsPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1024);
 
+  // Responsive settings
+  const chartHeight = isMobile ? 250 : isTablet ? 300 : 350;
+  const barSize = isMobile ? 20 : 30;
+  const pieOuterRadius = isMobile ? 80 : isTablet ? 90 : 100;
+  const xAxisAngle = isMobile ? -90 : -45;
+  const legendProps = {
+    layout: isMobile ? 'horizontal' : 'vertical',
+    verticalAlign: isMobile ? 'bottom' : 'middle',
+    align: isMobile ? 'center' : 'right',
+    wrapperStyle: {
+      paddingTop: isMobile ? '10px' : '0',
+      paddingLeft: isMobile ? '0' : '20px'
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -50,12 +66,6 @@ const AnalyticsPage = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // Chart responsive settings
-  const chartHeight = isMobile ? 250 : 300;
-  const barSize = isMobile ? 20 : 30;
-  const pieOuterRadius = isMobile ? 80 : 100;
-  const xAxisAngle = isMobile ? -90 : -45;
   // Get data from Redux
   const clients = useSelector(selectAllClients);
   const companies = useSelector(selectAllCompanies);
@@ -188,111 +198,78 @@ const AnalyticsPage = () => {
 
   const StatCard = ({ title, value, icon: Icon, color, trend, subtitle }) => {
     const colorClasses = {
-      blue: {
-        bg: "bg-[#FEFDFC]",
-        light: "bg-[#FEFDFC]",
-        text: "text-blue-600",
-        gradient: "from-blue-500 to-blue-600",
-      },
-      green: {
-        bg: "bg-[#FEFDFC]",
-        light: "bg-[#FEFDFC]",
-        text: "text-green-600",
-        gradient: "from-green-500 to-green-600",
-      },
-      purple: {
-        bg: "bg-[#FEFDFC]",
-        light: "bg-[#FEFDFC]",
-        text: "text-purple-600",
-        gradient: "from-purple-500 to-purple-600",
-      },
-      orange: {
-        bg: "bg-[#FEFDFC]",
-        light: "bg-[#FEFDFC]",
-        text: "text-orange-600",
-        gradient: "from-orange-500 to-orange-600",
-      },
+      blue: { bg: "bg-blue-50", text: "text-blue-600" },
+      green: { bg: "bg-green-50", text: "text-green-600" },
+      purple: { bg: "bg-purple-50", text: "text-purple-600" },
+      orange: { bg: "bg-orange-50", text: "text-orange-600" },
     };
 
     const colors = colorClasses[color] || colorClasses.blue;
     const isPositive = trend > 0;
 
     return (
-      <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC] transition-all duration-300 group relative overflow-hidden">
-        <div
-          className={`absolute inset-0 bg-linear-to-br ${colors.gradient} opacity-0  transition-opacity duration-300`}
-        ></div>
-        <div className="relative">
-          <div className="flex items-start justify-between mb-4">
-            <div
-              className={`w-14 h-14 rounded-lg flex items-center justify-center ${colors.light}  transition-transform duration-300`}
+      <div className="bg-[#FEFDFC] rounded-lg p-3 sm:p-5 shadow-sm border border-[#BCC8BC]">
+        <div className="flex items-center justify-between mb-2 sm:mb-3">
+          <div className={`p-1.5 sm:p-2 rounded-lg ${colors.bg}`}>
+            <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text}`} />
+          </div>
+          {trend !== undefined && (
+            <span
+              className={`flex items-center gap-0.5 text-xs sm:text-sm font-medium ${
+                isPositive ? "text-green-600" : "text-red-600"
+              }`}
             >
-              <Icon className={`w-7 h-7 ${colors.text}`} />
-            </div>
-            {trend !== undefined && (
-              <div
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold ${
-                  isPositive
-                    ? "bg-[#FEFDFC] text-green-700"
-                    : "bg-[#FEFDFC] text-red-700"
-                }`}
-              >
-                {isPositive ? (
-                  <TrendingUp className="w-3 h-3" />
-                ) : (
-                  <TrendingDown className="w-3 h-3" />
-                )}
-                {isPositive ? "+" : ""}
-                {trend}%
-              </div>
-            )}
-          </div>
-          <div>
-            <p className="text-[#2f362f] text-sm font-medium mb-1">{title}</p>
-            <h2 className="text-4xl font-bold text-[#2f362f] mb-1">{value}</h2>
-            {subtitle && <p className="text-[#2f362f] text-xs">{subtitle}</p>}
-          </div>
+              {isPositive ? (
+                <TrendingUp className="w-3 h-3" />
+              ) : (
+                <TrendingDown className="w-3 h-3" />
+              )}
+              {isPositive ? "+" : ""}
+              {trend}%
+            </span>
+          )}
         </div>
+        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">{value}</h3>
+        <p className="text-xs sm:text-sm text-[#2f362f]">{title}</p>
+        {subtitle && <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">{subtitle}</p>}
       </div>
     );
   };
 
   return (
-    <div className="p-4 lg:p-8 max-w-[1600px] mx-auto">
+    <div className="p-2 sm:p-4 lg:p-8 max-w-[1600px] mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-[#2f362f] mb-3">
+      <div className="mb-4 sm:mb-6 lg:mb-8">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-[#2f362f] mb-2 sm:mb-3">
           <button
             onClick={() => navigate("/")}
-            className="hover:text-[#2f362f]/60  transition-colors"
+            className="hover:text-[#2f362f]/60 transition-colors"
           >
             Dashboard
           </button>
           <span>/</span>
           <span className="text-[#2f362f] font-medium">Analytics</span>
         </div>
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-[#2f362f] mb-2 tracking-tight">
-              Analytics Dashboard
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2f362f] mb-1 sm:mb-2 tracking-tight">
+              Analytics
             </h1>
-            <p className="text-[#2f362f] text-lg">
-              Comprehensive insights into your business performance
+            <p className="text-sm sm:text-base text-[#2f362f]">
+              Business performance insights
             </p>
           </div>
-          <div className="flex gap-3">
-            <select className="px-4 py-2.5 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option>Last 7 Days</option>
-              <option>Last 30 Days</option>
-              <option>Last 90 Days</option>
-              <option>This Year</option>
-            </select>
-          </div>
+          <select className="w-full sm:w-auto px-3 sm:px-4 py-2 text-sm border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>Last 7 Days</option>
+            <option>Last 30 Days</option>
+            <option>Last 90 Days</option>
+            <option>This Year</option>
+          </select>
         </div>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
         <StatCard
           title="Total Revenue"
           value={kpis.totalDealValue}
@@ -330,89 +307,134 @@ const AnalyticsPage = () => {
       {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-6">
         {/* Deals by Stage */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Deals by Stage
               </h3>
-              <p className="text-sm text-[#2f362f] mt-1">
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">
                 Current pipeline distribution
               </p>
             </div>
-            <Activity className="w-5 h-5 text-blue-600" />
+            <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div className="w-full" style={{ height: `${chartHeight}px` }}>
+          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
             <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={dealsByStage}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis
-                dataKey="name"
-                tick={{ fontSize: isMobile ? 10 : 12 }}
-                angle={xAxisAngle}
-                textAnchor={isMobile ? 'end' : 'middle'}
-                height={isMobile ? 100 : 80}
-                interval={0}
-                minTickGap={isMobile ? -10 : 0}
-              />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e2e8f0",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+              <BarChart 
+                data={dealsByStage}
+                margin={{
+                  top: 10,
+                  right: 10,
+                  left: isMobile ? -15 : 0,
+                  bottom: isMobile ? 60 : 20
                 }}
-              />
-              <Bar 
-                dataKey="count" 
-                fill="#667eea" 
-                radius={[4, 4, 0, 0]}
-                barSize={barSize}
-                style={{
-                  filter: 'drop-shadow(0 2px 2px rgba(102, 126, 234, 0.2))'
-                }}
-              />
-            </BarChart>
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  tick={{
+                    fontSize: isMobile ? 9 : 11,
+                    fill: '#4a5568'
+                  }}
+                  angle={-45}
+                  textAnchor="end"
+                  height={isMobile ? 70 : 50}
+                  interval={0}
+                  tickMargin={5}
+                />
+                <YAxis 
+                  tick={{ 
+                    fontSize: isMobile ? 10 : 12,
+                    fill: '#4a5568'
+                  }}
+                  width={isMobile ? 25 : 35}
+                  tickCount={5}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                  formatter={(value) => [`${value} Deals`, 'Count']}
+                />
+                <Bar 
+                  dataKey="count" 
+                  name="Deals"
+                  radius={[4, 4, 0, 0]}
+                  barSize={isMobile ? 18 : 28}
+                >
+                  {dealsByStage.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={COLORS.primary[index % COLORS.primary.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Deals by Status (Pie) */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Deals by Status
               </h3>
-              <p className="text-sm text-[#2f362f] mt-1">Status distribution</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">Status distribution</p>
             </div>
-            <Briefcase className="w-5 h-5 text-purple-600" />
+            <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
           </div>
-          <div className="w-full" style={{ height: `${chartHeight}px` }}>
+          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
             <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={dealsByStatus}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => (
-                  isMobile ? `${(percent * 100).toFixed(0)}%` : `${name} ${(percent * 100).toFixed(0)}%`
-                )}
-                outerRadius={pieOuterRadius}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {dealsByStatus.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS.status[entry.name] || COLORS.primary[index]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
+              <PieChart>
+                <Pie
+                  data={dealsByStatus}
+                  cx="50%"
+                  cy={isMobile ? "40%" : "50%"}
+                  labelLine={false}
+                  outerRadius={isMobile ? 70 : pieOuterRadius}
+                  innerRadius={isMobile ? 35 : 50}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {dealsByStatus.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={COLORS.primary[index % COLORS.primary.length]}
+                      stroke="#fff"
+                      strokeWidth={1}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  formatter={(value, name) => [`${value} Deals`, name]}
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                />
+                <Legend 
+                  layout="horizontal"
+                  verticalAlign="bottom"
+                  align="center"
+                  wrapperStyle={{
+                    paddingTop: '10px',
+                    fontSize: isMobile ? '10px' : '12px'
+                  }}
+                  iconSize={isMobile ? 8 : 10}
+                />
+              </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -421,80 +443,149 @@ const AnalyticsPage = () => {
       {/* Charts Row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-6">
         {/* Monthly Trend */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Monthly Performance
               </h3>
-              <p className="text-sm text-[#2f362f] mt-1">
-                Deal count and value trends
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">
+                Deal count trends
               </p>
             </div>
-            <TrendingUp className="w-5 h-5 text-green-600" />
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
           </div>
-          <div className="w-full" style={{ height: `${chartHeight}px` }}>
+          <div className="w-full" style={{ height: isMobile ? '220px' : `${chartHeight}px` }}>
             <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={monthlyTrend}>
-              <defs>
-                <linearGradient id="colorDeals" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#667eea" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#667eea" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e2e8f0",
-                  borderRadius: "8px",
+              <AreaChart 
+                data={monthlyTrend}
+                margin={{
+                  top: 10,
+                  right: 10,
+                  left: isMobile ? -15 : 0,
+                  bottom: 5
                 }}
-              />
-              <Area
-                type="monotone"
-                dataKey="deals"
-                stroke="#667eea"
-                fillOpacity={1}
-                fill="url(#colorDeals)"
-              />
-            </AreaChart>
+              >
+                <defs>
+                  <linearGradient id="colorDeals" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#667eea" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#667eea" stopOpacity={0.1} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis 
+                  dataKey="month" 
+                  tick={{ 
+                    fontSize: isMobile ? 10 : 12,
+                    fill: '#4a5568'
+                  }}
+                  tickLine={false}
+                />
+                <YAxis 
+                  tick={{ 
+                    fontSize: isMobile ? 10 : 12,
+                    fill: '#4a5568'
+                  }}
+                  width={isMobile ? 25 : 35}
+                  tickCount={5}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                  formatter={(value) => [`${value} Deals`, 'Count']}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="deals"
+                  name="Deals"
+                  stroke="#667eea"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorDeals)"
+                  activeDot={{ r: isMobile ? 4 : 6, strokeWidth: 0, fill: '#667eea' }}
+                />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Companies by Industry */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Companies by Industry
               </h3>
-              <p className="text-sm text-[#2f362f] mt-1">Top 6 industries</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">Top 6 industries</p>
             </div>
-            <Briefcase className="w-5 h-5 text-orange-600" />
+            <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
           </div>
-          <div className="w-full" style={{ height: `${chartHeight}px` }}>
+          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
             <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={companiesByIndustry} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis type="number" tick={{ fontSize: 12 }} />
-              <YAxis
-                dataKey="name"
-                type="category"
-                tick={{ fontSize: 12 }}
-                width={100}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e2e8f0",
-                  borderRadius: "8px",
+              <BarChart 
+                data={companiesByIndustry} 
+                layout="vertical"
+                margin={{
+                  top: 5,
+                  right: 15,
+                  left: isMobile ? 5 : 10,
+                  bottom: 5
                 }}
-              />
-              <Bar dataKey="value" fill="#f97316" radius={[0, 8, 8, 0]} />
-            </BarChart>
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
+                <XAxis 
+                  type="number" 
+                  tick={{ 
+                    fontSize: isMobile ? 10 : 12,
+                    fill: '#4a5568'
+                  }}
+                  tickCount={4}
+                  hide={isMobile}
+                />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  tick={{ 
+                    fontSize: isMobile ? 10 : 11,
+                    fill: '#4a5568'
+                  }}
+                  width={isMobile ? 70 : 80}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                  formatter={(value) => [`${value} Companies`, 'Count']}
+                />
+                <Bar 
+                  dataKey="value" 
+                  name="Companies"
+                  radius={[0, 4, 4, 0]}
+                  barSize={isMobile ? 16 : 22}
+                >
+                  {companiesByIndustry.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={COLORS.primary[index % COLORS.primary.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

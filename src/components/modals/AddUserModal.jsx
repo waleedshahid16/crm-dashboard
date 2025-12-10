@@ -176,14 +176,14 @@ const AddUserModal = ({ open, onClose, initialData = null, mode = "add" }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-[#f8faf9] rounded-3xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-[#f8faf9] rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-3xl my-4 sm:my-8 max-h-[calc(100vh-2rem)] sm:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Gradient Header */}
-        <div className="bg-blue-200 p-6 text-[#2f362f]">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="bg-blue-200 p-4 sm:p-6 text-[#2f362f]">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
               {/* Avatar */}
-              <div className="w-14 h-14 rounded-full bg-white/25 backdrop-blur-md border-3 border-white/30 flex items-center justify-center text-2xl font-bold overflow-hidden">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/25 backdrop-blur-md border-2 sm:border-3 border-white/30 flex items-center justify-center text-xl sm:text-2xl font-bold overflow-hidden flex-shrink-0">
                 {avatarPreview ? (
                   <img
                     src={avatarPreview}
@@ -191,16 +191,16 @@ const AddUserModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span>
+                  <span className="text-lg sm:text-2xl">
                     {`${firstName.charAt(0)}${lastName.charAt(0)}` || "👤"}
                   </span>
                 )}
               </div>
-              <div>
-                <h2 className="text-2xl font-bold">
+              <div className="min-w-0">
+                <h2 className="text-xl sm:text-2xl font-bold truncate">
                   {isEdit ? "Edit Contact" : "Add New Contact"}
                 </h2>
-                <p className="text-sm opacity-90 mt-1">
+                <p className="text-xs sm:text-sm opacity-90 mt-0.5 sm:mt-1 truncate">
                   {isEdit
                     ? "Update the contact information"
                     : "Create a new contact in your CRM system"}
@@ -209,9 +209,10 @@ const AddUserModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
             <button
               onClick={handleClose}
-              className="p-1.5 hover:bg-white/20 rounded-md transition-colors"
+              className="p-1.5 hover:bg-white/20 rounded-md transition-colors flex-shrink-0"
+              aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>

@@ -213,21 +213,21 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-[#f8faf9] rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+      <div className="bg-[#f8faf9] rounded-2xl sm:rounded-3xl shadow-2xl w-full max-w-2xl my-4 sm:my-8 max-h-[calc(100vh-2rem)] sm:max-h-[90vh] overflow-hidden flex flex-col">
         {/* Gradient Header */}
-        <div className="bg-blue-200 p-6 text-[#2f362f]">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="bg-blue-200 p-4 sm:p-6 text-[#2f362f] sticky top-0 z-10">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-start gap-3 sm:items-center sm:gap-4 flex-1">
               {/* Deal Icon */}
-              <div className="w-14 h-14 rounded-full border-3 border-[#2f362f] flex items-center justify-center">
-                <DollarSign className="w-7 h-7" />
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 sm:border-3 border-[#2f362f] flex items-center justify-center flex-shrink-0">
+                <DollarSign className="w-5 h-5 sm:w-7 sm:h-7" />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-xl sm:text-2xl font-bold truncate">
                   {isEdit ? "Edit Deal" : "Add New Deal"}
                 </h2>
-                <p className="text-sm opacity-90 mt-1">
+                <p className="text-xs sm:text-sm opacity-90 mt-1 line-clamp-2">
                   {isEdit
                     ? "Update deal information"
                     : "Create a new deal in your pipeline"}
@@ -236,9 +236,9 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
             <button
               onClick={handleClose}
-              className="p-1.5 hover:bg-white/20 rounded-md transition-colors"
+              className="p-1 sm:p-1.5 hover:bg-white/20 rounded-md transition-colors flex-shrink-0"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
@@ -246,7 +246,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
         {/* Content */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-        className="flex-1 overflow-y-auto p-6 bg-[#FEFDFC]"
+          className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 bg-[#FEFDFC]"
         >
           <div className="space-y-4">
             {/* Deal Name */}
@@ -262,7 +262,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <input
                       {...field}
                       placeholder="Enter deal name"
-                      className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                      className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                         errors.dealName ? "border-red-500" : "border-[#BCC8BC]"
                       }`}
                     />
@@ -277,7 +277,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Pipeline and Status */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Pipeline */}
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -299,7 +299,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.pipeline
                             ? "border-red-500"
                             : "border-[#BCC8BC]"
@@ -334,7 +334,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.status ? "border-red-500" : "border-[#BCC8BC]"
                         }`}
                       >
@@ -357,7 +357,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Deal Value and Currency */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Deal Value */}
               <div>
                 <label className="block text-sm font-semibold text-[#2f362f] mb-2">
@@ -371,7 +371,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                       <input
                         {...field}
                         placeholder="Enter deal value"
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.dealValue
                             ? "border-red-500"
                             : "border-[#BCC8BC]"
@@ -399,7 +399,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.currency
                             ? "border-red-500"
                             : "border-[#BCC8BC]"
@@ -424,7 +424,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Period and Period Value */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Period */}
               <div>
                 <label className="block text-sm font-semibold text-[#2f362f] mb-2">
@@ -437,7 +437,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.period ? "border-red-500" : "border-[#BCC8BC]"
                         }`}
                       >
@@ -548,7 +548,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Dates Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
               {/* Due Date */}
               <div>
                 <label className="block text-sm font-semibold text-[#2f362f] mb-2">
@@ -658,7 +658,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
             </div>
 
             {/* Source and Priority */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {/* Source */}
               <div>
                 <label className="block text-sm font-semibold text-[#2f362f] mb-2">
@@ -671,7 +671,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.source ? "border-red-500" : "border-[#BCC8BC]"
                         }`}
                       >
@@ -704,7 +704,7 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
                     <div>
                       <select
                         {...field}
-                        className={`w-full px-2.5 py-2 border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
+                        className={`w-full px-2.5 py-2 text-sm sm:text-base border rounded-md focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
                           errors.priority
                             ? "border-red-500"
                             : "border-[#BCC8BC]"
@@ -859,31 +859,20 @@ const AddDealModal = ({ open, onClose, initialData = null, mode = "add" }) => {
 
         {/* Footer with Action Buttons */}
         <div className="p-6 bg-white border-t border-slate-200">
-          <div className="flex items-center justify-end gap-3">
+          <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 p-3 sm:p-4 bg-white border-t border-gray-200 sticky bottom-0">
             <button
               type="button"
               onClick={handleClose}
-              className="px-2.5 py-2 border border-[#BCC8BC] text-[#2f362f] rounded-md hover:bg-slate-50 transition-colors font-medium text-sm"
+              className="px-4 py-2 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Cancel
             </button>
             <button
               type="submit"
-              onClick={handleSubmit(onSubmit)}
               disabled={isSubmitting}
-              className="px-2.5 py-2 bg-blue-200 text-[#2f362f] border-[#BCC8BC] rounded-md font-semibold  transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm"
+              className="px-4 py-2 text-sm sm:text-base font-medium text-[#2f362f] bg-blue-200 border border-transparent rounded-md shadow-sm hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <DollarSign className="w-5 h-5" />
-                  {isEdit ? "Update Deal" : "Create Deal"}
-                </>
-              )}
+              {isSubmitting ? 'Saving...' : 'Save Deal'}
             </button>
           </div>
         </div>

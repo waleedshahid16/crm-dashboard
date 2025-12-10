@@ -189,23 +189,23 @@ const HelpSupportPage = () => {
       {/* Quick Links */}
       <div className="mb-8">
         <h2 className="text-xl font-bold text-[#2f362f] mb-4">Quick Links</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {quickLinks.map((link, index) => {
             const colors = colorClasses[link.color];
             return (
               <div
                 key={index}
-                className="bg-[#FEFDFC] rounded-lg p-5 shadow-sm border border-[#BCC8BC] hover:shadow-md transition-all cursor-pointer group"
+                className="bg-[#FEFDFC] rounded-lg p-3 sm:p-5 shadow-sm border border-[#BCC8BC] hover:shadow-md transition-all cursor-pointer group"
               >
                 <div
-                  className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-4  transition-transform`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 ${colors.bg} rounded-lg flex items-center justify-center mb-3 sm:mb-4 transition-transform`}
                 >
-                  <link.icon className={`w-6 h-6 ${colors.text}`} />
+                  <link.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${colors.text}`} />
                 </div>
-                <h3 className="font-semibold text-[#2f362f] mb-1">
+                <h3 className="font-semibold text-[#2f362f] mb-1 text-sm sm:text-base">
                   {link.title}
                 </h3>
-                <p className="text-sm text-[#2f362f]/70">{link.description}</p>
+                <p className="text-xs sm:text-sm text-[#2f362f]/70">{link.description}</p>
               </div>
             );
           })}

@@ -260,11 +260,11 @@ const SettingsPage = () => {
   // Reusable Components
   const SettingSection = useCallback(
     ({ title, description, children }) => (
-      <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC] mb-4">
+      <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-5 md:p-6 shadow-sm border border-[#BCC8BC] mb-4 w-full overflow-hidden">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-[#2f362f]">{title}</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">{title}</h3>
           {description && (
-            <p className="text-sm text-[#2f362f] opacity-70">{description}</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">{description}</p>
           )}
         </div>
         {children}
@@ -275,20 +275,20 @@ const SettingsPage = () => {
 
   const FormInput = ({ label, icon: Icon, error, ...props }) => (
     <div>
-      <label className="block text-sm font-medium text-[#2f362f] mb-2">
-        {Icon && <Icon className="w-4 h-4 inline mr-2" />}
+      <label className="block text-xs sm:text-sm font-medium text-[#2f362f] mb-1.5 sm:mb-2">
+        {Icon && <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1.5 sm:mr-2" />}
         {label}
       </label>
       <input
         {...props}
-        className={`w-full px-2.5 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent bg-[#f8faf9] ${
+        className={`w-full px-2 sm:px-2.5 py-1.5 sm:py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:border-transparent bg-[#f8faf9] ${
           error
             ? "border-red-500 focus:ring-red-300"
             : "border-[#BCC8BC] focus:ring-blue-500"
         }`}
       />
       {error && (
-        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+        <p className="mt-1 text-xs sm:text-sm text-red-600 flex items-center gap-1">
           <AlertCircle className="w-3 h-3" />
           {error.message}
         </p>
@@ -298,13 +298,13 @@ const SettingsPage = () => {
 
   const FormSelect = ({ label, icon: Icon, error, options, ...props }) => (
     <div>
-      <label className="block text-sm font-medium text-[#2f362f] mb-2">
-        {Icon && <Icon className="w-4 h-4 inline mr-2" />}
+      <label className="block text-xs sm:text-sm font-medium text-[#2f362f] mb-1.5 sm:mb-2">
+        {Icon && <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1.5 sm:mr-2" />}
         {label}
       </label>
       <select
         {...props}
-        className={`w-full px-2.5 py-2 border rounded-md focus:outline-none focus:ring-2 focus:border-transparent bg-[#f8faf9] ${
+        className={`w-full px-2 sm:px-2.5 py-1.5 sm:py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:border-transparent bg-[#f8faf9] ${
           error
             ? "border-red-500 focus:ring-red-300"
             : "border-[#BCC8BC] focus:ring-blue-500"
@@ -317,7 +317,7 @@ const SettingsPage = () => {
         ))}
       </select>
       {error && (
-        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+        <p className="mt-1 text-xs sm:text-sm text-red-600 flex items-center gap-1">
           <AlertCircle className="w-3 h-3" />
           {error.message}
         </p>
@@ -327,16 +327,16 @@ const SettingsPage = () => {
 
   const Toggle = useCallback(
     ({ label, description, error, ...props }) => (
-      <div className="flex items-center justify-between py-2 border-b border-[#BCC8BC] last:border-b-0">
-        <div>
-          <p className="font-medium text-[#2f362f]">{label}</p>
+      <div className="flex items-center justify-between py-2 gap-3 border-b border-[#BCC8BC] last:border-b-0">
+        <div className="min-w-0 flex-1">
+          <p className="font-medium text-[#2f362f] text-sm sm:text-base">{label}</p>
           {description && (
-            <p className="text-sm text-[#2f362f] opacity-70">{description}</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70 break-words">{description}</p>
           )}
         </div>
-        <label className="relative inline-flex items-center cursor-pointer">
+        <label className="relative inline-flex items-center cursor-pointer shrink-0">
           <input type="checkbox" {...props} className="sr-only peer" />
-          <div className="w-11 h-6 bg-[#BCC8BC] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
+          <div className="w-9 h-5 sm:w-11 sm:h-6 bg-[#BCC8BC] peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 sm:after:h-5 sm:after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
         </label>
       </div>
     ),
@@ -345,13 +345,13 @@ const SettingsPage = () => {
 
   const StatBadge = useCallback(
     ({ icon: Icon, label, value, color }) => (
-      <div className="flex items-center gap-3 p-3 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
-        <div className={`p-2 rounded-lg ${color}`}>
-          <Icon className="w-4 h-4" />
+      <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
+        <div className={`p-1.5 sm:p-2 rounded-lg shrink-0 ${color}`}>
+          <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
-        <div>
-          <p className="text-xs text-[#2f362f] opacity-70">{label}</p>
-          <p className="font-bold text-[#2f362f]">{value}</p>
+        <div className="min-w-0">
+          <p className="text-[10px] sm:text-xs text-[#2f362f] opacity-70 truncate">{label}</p>
+          <p className="font-bold text-[#2f362f] text-sm sm:text-base">{value}</p>
         </div>
       </div>
     ),
@@ -364,22 +364,22 @@ const SettingsPage = () => {
         title="Personal Information"
         description="Update your personal details and contact information"
       >
-        <div className="flex items-center gap-6 mb-6 pb-6 border-b border-[#BCC8BC]">
-          <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-3xl shadow-md">
+        <div className="flex items-center gap-3 sm:gap-6 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-[#BCC8BC]">
+          <div className="relative shrink-0">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-[#BCC8BC] flex items-center justify-center text-[#2f362f] font-bold text-xl sm:text-3xl shadow-md">
               JD
             </div>
             <button
               type="button"
-              className="absolute bottom-0 right-0 p-2 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors"
+              className="absolute bottom-0 right-0 p-1.5 sm:p-2 bg-blue-500 rounded-full text-white hover:bg-blue-600 transition-colors"
             >
-              <Camera className="w-4 h-4" />
+              <Camera className="w-3 h-3 sm:w-4 sm:h-4" />
             </button>
           </div>
-          <div>
-            <h4 className="font-bold text-[#2f362f] text-lg">John Doe</h4>
-            <p className="text-[#2f362f] opacity-70">Administrator</p>
-            <p className="text-sm text-[#2f362f] opacity-50">ClientHub Inc.</p>
+          <div className="min-w-0">
+            <h4 className="font-bold text-[#2f362f] text-base sm:text-lg">John Doe</h4>
+            <p className="text-[#2f362f] opacity-70 text-sm sm:text-base">Administrator</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-50">ClientHub Inc.</p>
           </div>
         </div>
 
@@ -465,12 +465,12 @@ const SettingsPage = () => {
         <button
           type="submit"
           disabled={isSaving || !isProfileDirty}
-          className="px-2.5 py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-1.5 sm:gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
         >
           {isSaving ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
+            <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           )}
           {isSaving ? "Saving..." : "Save Profile"}
         </button>
@@ -522,7 +522,7 @@ const SettingsPage = () => {
         title="Notification Statistics"
         description="Overview of your CRM data that triggers notifications"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <StatBadge
             icon={Handshake}
             label="Active Deals"
@@ -554,12 +554,12 @@ const SettingsPage = () => {
         <button
           type="submit"
           disabled={isSaving}
-          className="px-2.5 py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50"
+          className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-1.5 sm:gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50 text-xs sm:text-sm"
         >
           {isSaving ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
+            <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           )}
           {isSaving ? "Saving..." : "Save Notifications"}
         </button>
@@ -681,12 +681,12 @@ const SettingsPage = () => {
         <button
           type="submit"
           disabled={isSaving}
-          className="px-2.5 py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50"
+          className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-blue-200 text-[#2f362f] rounded-md font-semibold flex items-center gap-1.5 sm:gap-2 hover:bg-blue-300 transition-colors disabled:opacity-50 text-xs sm:text-sm"
         >
           {isSaving ? (
-            <RefreshCw className="w-4 h-4 animate-spin" />
+            <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
           ) : (
-            <Save className="w-4 h-4" />
+            <Save className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           )}
           {isSaving ? "Saving..." : "Update Security"}
         </button>
@@ -700,20 +700,20 @@ const SettingsPage = () => {
         title="Theme"
         description="Customize the look and feel of your dashboard"
       >
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           {["light", "dark", "system"].map((theme) => (
             <button
               key={theme}
               type="button"
               onClick={() => handleThemeChange(theme)}
-              className={`p-4 rounded-lg border-2 transition-all ${
+              className={`p-2 sm:p-4 rounded-lg border-2 transition-all ${
                 currentTheme === theme
                   ? "border-blue-500 bg-blue-50"
                   : "border-[#BCC8BC] hover:border-blue-300"
               }`}
             >
               <div
-                className={`w-full h-16 rounded mb-3 ${
+                className={`w-full h-10 sm:h-16 rounded mb-2 sm:mb-3 ${
                   theme === "light"
                     ? "bg-white border border-gray-200"
                     : theme === "dark"
@@ -721,18 +721,18 @@ const SettingsPage = () => {
                     : "bg-linear-to-r from-white to-gray-800"
                 }`}
               />
-              <p className="text-sm font-medium text-[#2f362f] capitalize">
+              <p className="text-xs sm:text-sm font-medium text-[#2f362f] capitalize">
                 {theme}
               </p>
               {currentTheme === theme && (
-                <span className="text-xs text-blue-600 font-medium">
+                <span className="text-[10px] sm:text-xs text-blue-600 font-medium">
                   Active
                 </span>
               )}
             </button>
           ))}
         </div>
-        <p className="mt-3 text-sm text-[#2f362f] opacity-70">
+        <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-[#2f362f] opacity-70">
           Current theme:{" "}
           <span className="font-medium capitalize">{currentTheme}</span>
         </p>
@@ -742,12 +742,12 @@ const SettingsPage = () => {
         title="Display Density"
         description="Choose how compact you want the interface to be"
       >
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-2 sm:gap-4">
           {["Comfortable", "Compact", "Spacious"].map((density) => (
             <button
               key={density}
               type="button"
-              className="px-2.5 py-2 rounded-md border border-[#BCC8BC] hover:border-blue-300 hover:bg-blue-50 transition-all text-[#2f362f] font-medium"
+              className="px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-md border border-[#BCC8BC] hover:border-blue-300 hover:bg-blue-50 transition-all text-[#2f362f] font-medium text-xs sm:text-sm"
             >
               {density}
             </button>
@@ -789,20 +789,20 @@ const SettingsPage = () => {
           ].map((app) => (
             <div
               key={app.name}
-              className="flex items-center justify-between p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]"
+              className="flex items-center justify-between p-2.5 sm:p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC] gap-2"
             >
-              <div className="flex items-center gap-4">
-                <span className="text-2xl">{app.icon}</span>
-                <div>
-                  <p className="font-medium text-[#2f362f]">{app.name}</p>
-                  <p className="text-sm text-[#2f362f] opacity-70">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+                <span className="text-lg sm:text-2xl shrink-0">{app.icon}</span>
+                <div className="min-w-0">
+                  <p className="font-medium text-[#2f362f] text-sm sm:text-base truncate">{app.name}</p>
+                  <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">
                     {app.status}
                   </p>
                 </div>
               </div>
               <button
                 type="button"
-                className={`px-2.5 py-2 rounded-md font-medium transition-colors ${
+                className={`px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-md font-medium transition-colors text-xs sm:text-sm shrink-0 ${
                   app.status === "Connected"
                     ? "bg-red-100 text-red-600 hover:bg-red-200"
                     : "bg-blue-200 text-[#2f362f] hover:bg-blue-300"
@@ -816,27 +816,28 @@ const SettingsPage = () => {
       </SettingSection>
 
       <SettingSection title="API Access" description="Manage your API keys">
-        <div className="p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-[#2f362f]">API Key</p>
-              <p className="text-sm text-[#2f362f] opacity-70 font-mono">
+        <div className="p-2.5 sm:p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
+            <div className="min-w-0">
+              <p className="font-medium text-[#2f362f] text-sm sm:text-base">API Key</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] opacity-70 font-mono truncate">
                 ••••••••••••••••
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
               <button
                 type="button"
-                className="px-3 py-1.5 bg-[#FEFDFC] border border-[#BCC8BC] rounded-md text-sm font-medium text-[#2f362f] hover:bg-gray-50 transition-colors"
+                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-[#FEFDFC] border border-[#BCC8BC] rounded-md text-xs sm:text-sm font-medium text-[#2f362f] hover:bg-gray-50 transition-colors"
               >
                 Show
               </button>
               <button
                 type="button"
-                className="px-3 py-1.5 bg-[#FEFDFC] border border-[#BCC8BC] rounded-md text-sm font-medium text-[#2f362f] hover:bg-gray-50 transition-colors flex items-center gap-1"
+                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-[#FEFDFC] border border-[#BCC8BC] rounded-md text-xs sm:text-sm font-medium text-[#2f362f] hover:bg-gray-50 transition-colors flex items-center gap-1"
               >
                 <RefreshCw className="w-3 h-3" />
-                Regenerate
+                <span className="hidden sm:inline">Regenerate</span>
+                <span className="sm:hidden">Regen</span>
               </button>
             </div>
           </div>
@@ -852,40 +853,40 @@ const SettingsPage = () => {
         title="Data Overview"
         description="Summary of your CRM data"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-          <div className="p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
-            <Users className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[#2f362f]">
+        <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-3 sm:mb-4">
+          <div className="p-2.5 sm:p-4 bg-blue-50 rounded-lg border border-blue-200 text-center">
+            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mx-auto mb-1.5 sm:mb-2" />
+            <p className="text-lg sm:text-2xl font-bold text-[#2f362f]">
               {dataStats.totalClients}
             </p>
-            <p className="text-sm text-[#2f362f] opacity-70">Total Clients</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">Total Clients</p>
           </div>
-          <div className="p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
-            <Building2 className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[#2f362f]">
+          <div className="p-2.5 sm:p-4 bg-purple-50 rounded-lg border border-purple-200 text-center">
+            <Building2 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600 mx-auto mb-1.5 sm:mb-2" />
+            <p className="text-lg sm:text-2xl font-bold text-[#2f362f]">
               {dataStats.totalCompanies}
             </p>
-            <p className="text-sm text-[#2f362f] opacity-70">Companies</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">Companies</p>
           </div>
-          <div className="p-4 bg-green-50 rounded-lg border border-green-200 text-center">
-            <Handshake className="w-6 h-6 text-green-600 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[#2f362f]">
+          <div className="p-2.5 sm:p-4 bg-green-50 rounded-lg border border-green-200 text-center">
+            <Handshake className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mx-auto mb-1.5 sm:mb-2" />
+            <p className="text-lg sm:text-2xl font-bold text-[#2f362f]">
               {dataStats.totalDeals}
             </p>
-            <p className="text-sm text-[#2f362f] opacity-70">Total Deals</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">Total Deals</p>
           </div>
-          <div className="p-4 bg-orange-50 rounded-lg border border-orange-200 text-center">
-            <TrendingUp className="w-6 h-6 text-orange-600 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-[#2f362f]">
+          <div className="p-2.5 sm:p-4 bg-orange-50 rounded-lg border border-orange-200 text-center">
+            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 mx-auto mb-1.5 sm:mb-2" />
+            <p className="text-lg sm:text-2xl font-bold text-[#2f362f]">
               {dataStats.totalDealValue}
             </p>
-            <p className="text-sm text-[#2f362f] opacity-70">Deal Value</p>
+            <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">Deal Value</p>
           </div>
         </div>
-        <div className="p-3 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
-          <div className="flex items-center justify-between text-sm">
+        <div className="p-2 sm:p-3 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs sm:text-sm">
             <span className="text-[#2f362f]">
-              <CheckSquare className="w-4 h-4 inline mr-2" />
+              <CheckSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4 inline mr-1.5 sm:mr-2" />
               Tasks: {dataStats.completedTasks} / {dataStats.totalTasks}{" "}
               completed
             </span>
@@ -900,7 +901,7 @@ const SettingsPage = () => {
         title="Data Export"
         description="Download your data in various formats"
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
           {[
             { type: "Clients", count: dataStats.totalClients, icon: Users },
             { type: "Deals", count: dataStats.totalDeals, icon: Handshake },
@@ -909,14 +910,14 @@ const SettingsPage = () => {
             <button
               key={type}
               type="button"
-              className="p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC] hover:border-blue-300 hover:bg-blue-50 transition-all text-left group"
+              className="p-3 sm:p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC] hover:border-blue-300 hover:bg-blue-50 transition-all text-left group"
             >
-              <div className="flex items-center justify-between mb-2">
-                <Icon className="w-5 h-5 text-[#2f362f] opacity-70" />
-                <Download className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f] opacity-70" />
+                <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <p className="font-medium text-[#2f362f]">Export {type}</p>
-              <p className="text-sm text-[#2f362f] opacity-70">
+              <p className="font-medium text-[#2f362f] text-sm sm:text-base">Export {type}</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">
                 {count} records • CSV, Excel, JSON
               </p>
             </button>
@@ -929,14 +930,14 @@ const SettingsPage = () => {
         description="Configure how long we keep your data"
       >
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
-            <div>
-              <p className="font-medium text-[#2f362f]">Activity Logs</p>
-              <p className="text-sm text-[#2f362f] opacity-70">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 p-2.5 sm:p-4 bg-[#f8faf9] rounded-lg border border-[#BCC8BC]">
+            <div className="min-w-0">
+              <p className="font-medium text-[#2f362f] text-sm sm:text-base">Activity Logs</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] opacity-70">
                 How long to keep activity history
               </p>
             </div>
-            <select className="px-2.5 py-2 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#FEFDFC]">
+            <select className="px-2 sm:px-2.5 py-1.5 sm:py-2 border border-[#BCC8BC] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#FEFDFC] text-sm shrink-0">
               <option>30 days</option>
               <option>90 days</option>
               <option>1 year</option>
@@ -950,11 +951,11 @@ const SettingsPage = () => {
         title="Danger Zone"
         description="Irreversible actions that affect your account"
       >
-        <div className="p-4 bg-red-50 rounded-lg border border-red-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="font-medium text-red-700">Delete Account</p>
-              <p className="text-sm text-red-600">
+        <div className="p-2.5 sm:p-4 bg-red-50 rounded-lg border border-red-200">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-medium text-red-700 text-sm sm:text-base">Delete Account</p>
+              <p className="text-xs sm:text-sm text-red-600">
                 Permanently delete your account and all {dataStats.totalClients}{" "}
                 clients, {dataStats.totalDeals} deals, and{" "}
                 {dataStats.totalTasks} tasks
@@ -962,9 +963,9 @@ const SettingsPage = () => {
             </div>
             <button
               type="button"
-              className="px-2.5 py-2 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors flex items-center gap-2"
+              className="px-2 sm:px-2.5 py-1.5 sm:py-2 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm shrink-0 w-full sm:w-auto"
             >
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               Delete Account
             </button>
           </div>
@@ -993,7 +994,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="p-2 sm:p-4 md:p-6 lg:p-8 max-w-[1600px] mx-auto bg-[#f8faf9] min-h-screen">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto bg-[#f8faf9] min-h-screen w-full box-border">
       {/* Success Toast */}
       {saveSuccess && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top">
@@ -1016,45 +1017,42 @@ const SettingsPage = () => {
           <span>/</span>
           <span className="text-[#2f362f] font-medium">Settings</span>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2f362f] mb-1 sm:mb-2 tracking-tight">
-              Settings
-            </h1>
-            <p className="text-[#2f362f] text-sm sm:text-base lg:text-lg">
-              Manage your account settings
-            </p>
-          </div>
+        <div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2f362f] mb-1 sm:mb-2 tracking-tight">
+            Settings
+          </h1>
+          <p className="text-[#2f362f] text-sm sm:text-base lg:text-lg">
+            Manage your account settings
+          </p>
         </div>
       </div>
 
-      {/* Main Content - Stack on mobile, side-by-side on desktop */}
-      <div className="flex flex-col lg:grid lg:grid-cols-4 gap-4 sm:gap-6">
-        {/* Sidebar Navigation - Horizontal scroll on mobile, vertical on desktop */}
-        <div className="lg:col-span-1 order-first lg:order-0">
-          {/* Mobile horizontal tabs */}
-          <div className="lg:hidden overflow-x-auto pb-2 -mx-2 px-2">
-            <div className="flex gap-2 min-w-max">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg whitespace-nowrap transition-colors ${
-                    activeTab === tab.id
-                      ? "bg-[#788978] text-white"
-                      : "bg-[#FEFDFC] text-[#2f362f] border border-[#BCC8BC]"
-                  }`}
-                >
-                  <tab.icon className="w-4 h-4" />
-                  <span className="text-sm font-medium">{tab.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          {/* Desktop vertical nav */}
-          <div className="hidden lg:block bg-[#FEFDFC] rounded-lg shadow-sm border border-[#BCC8BC] overflow-hidden sticky top-4">
+      {/* Mobile dropdown filter */}
+      <div className="lg:hidden mb-4">
+        <label className="block text-xs font-medium text-[#2f362f] mb-1.5">
+          Settings Section
+        </label>
+        <div className="relative">
+          <select
+            value={activeTab}
+            onChange={(e) => setActiveTab(e.target.value)}
+            className="w-full px-3 py-2.5 pr-10 bg-[#FEFDFC] border border-[#BCC8BC] rounded-lg text-[#2f362f] font-medium text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent cursor-pointer"
+          >
+            {tabs.map((tab) => (
+              <option key={tab.id} value={tab.id}>
+                {tab.label}
+              </option>
+            ))}
+          </select>
+          <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2f362f] rotate-90 pointer-events-none" />
+        </div>
+      </div>
+
+      {/* Main Content - Side-by-side on desktop */}
+      <div className="lg:grid lg:grid-cols-4 lg:gap-6">
+        {/* Desktop vertical nav */}
+        <div className="hidden lg:block lg:col-span-1">
+          <div className="bg-[#FEFDFC] rounded-lg shadow-sm border border-[#BCC8BC] overflow-hidden sticky top-4">
             <nav className="divide-y divide-[#BCC8BC]">
               {tabs.map((tab) => (
                 <button
@@ -1083,7 +1081,7 @@ const SettingsPage = () => {
         </div>
 
         {/* Content Area */}
-        <div className="lg:col-span-3">{renderContent()}</div>
+        <div className="lg:col-span-3 w-full">{renderContent()}</div>
       </div>
     </div>
   );

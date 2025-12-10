@@ -202,13 +202,13 @@ const DealsPage = () => {
         </div>
       </div>
 
-      {/* Deals Grid - Responsive 1 to 3 columns */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+      {/* Deals Grid - 1 column on mobile, 2 on tablet, 3 on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-3">
         {deals.map((deal) => {
           return (
             <div
               key={deal.id}
-              className="bg-[#FEFDFC] rounded-lg p-4 sm:p-5 lg:p-6 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
+              className="bg-[#FEFDFC] rounded-lg p-3 sm:p-4 lg:p-5 shadow-sm border border-[#BCC8BC] hover:shadow-lg transition-all duration-300 cursor-pointer"
               onClick={(e) => openDealEdit(deal, e)}
             >
               {/* Header */}

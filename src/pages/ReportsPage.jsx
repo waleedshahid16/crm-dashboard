@@ -174,23 +174,23 @@ const ReportsPage = () => {
   // Helper component for summary cards
   const StatCard = ({ title, value, icon: Icon, color, trend, subtitle }) => {
     const colorClasses = {
-      blue: { bg: "bg-[#FEFDFC]", text: "text-blue-600" },
-      green: { bg: "bg-[#FEFDFC]", text: "text-green-600" },
-      purple: { bg: "bg-[#FEFDFC]", text: "text-purple-600" },
-      orange: { bg: "bg-[#FEFDFC]", text: "text-orange-600" },
+      blue: { bg: "bg-blue-50", text: "text-blue-600" },
+      green: { bg: "bg-green-50", text: "text-green-600" },
+      purple: { bg: "bg-purple-50", text: "text-purple-600" },
+      orange: { bg: "bg-orange-50", text: "text-orange-600" },
     };
 
     const colors = colorClasses[color] || colorClasses.blue;
 
     return (
-      <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-        <div className="flex items-center justify-between mb-4">
-          <div className={`p-2 rounded-lg ${colors.bg}`}>
-            <Icon className={`w-6 h-6 ${colors.text}`} />
+      <div className="bg-[#FEFDFC] rounded-lg p-3 sm:p-5 shadow-sm border border-[#BCC8BC]">
+        <div className="flex items-center justify-between mb-2 sm:mb-3">
+          <div className={`p-1.5 sm:p-2 rounded-lg ${colors.bg}`}>
+            <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text}`} />
           </div>
           {trend && (
             <span
-              className={`text-sm font-medium ${
+              className={`text-xs sm:text-sm font-medium ${
                 trend > 0 ? "text-green-600" : "text-red-600"
               }`}
             >
@@ -198,9 +198,9 @@ const ReportsPage = () => {
             </span>
           )}
         </div>
-        <h3 className="text-2xl font-bold text-[#2f362f] mb-1">{value}</h3>
-        <p className="text-sm text-[#2f362f]">{title}</p>
-        {subtitle && <p className="text-xs text-[#2f362f] mt-1">{subtitle}</p>}
+        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">{value}</h3>
+        <p className="text-xs sm:text-sm text-[#2f362f]">{title}</p>
+        {subtitle && <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">{subtitle}</p>}
       </div>
     );
   };
@@ -208,34 +208,34 @@ const ReportsPage = () => {
   return (
     <div className="p-4 lg:p-8 max-w-[1600px] mx-auto">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-[#2f362f] mb-3">
+      <div className="mb-6 sm:mb-8">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-[#2f362f] mb-2 sm:mb-3">
           <button 
             onClick={() => navigate('/')}
-            className="hover:text-[#2f362f]/60  transition-colors"
+            className="hover:text-[#2f362f]/60 transition-colors"
           >
             Dashboard
           </button>
           <span>/</span>
           <span className="text-[#2f362f] font-medium">Reports</span>
         </div>
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#2f362f] mb-2">
-              Business Intelligence Reports
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#2f362f] mb-1 sm:mb-2">
+              Business Reports
             </h1>
-            <p className="text-[#2f362f]">
-              Comprehensive overview of your business performance and metrics
+            <p className="text-sm sm:text-base text-[#2f362f]">
+              Overview of your business performance
             </p>
           </div>
-          <div className="flex gap-3">
-            <button className="px-4 py-2.5 bg-blue-200 text-[#2f362f] rounded-md transition-colors font-semibold">
-              Export as PDF
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+            <button className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-200 text-[#2f362f] rounded-md transition-colors font-semibold text-sm">
+              Export PDF
             </button>
-            <button className="px-4 py-2.5 border border-[#BCC8BC] rounded-md  transition-colors">
-              <span className="flex items-center gap-2">
+            <button className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 border border-[#BCC8BC] rounded-md transition-colors text-sm">
+              <span className="flex items-center justify-center gap-2">
                 <FileText className="w-4 h-4" />
-                Generate Report
+                <span className="hidden sm:inline">Generate</span>
               </span>
             </button>
           </div>
@@ -243,7 +243,7 @@ const ReportsPage = () => {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mb-6 sm:mb-8">
         <StatCard
           title="Total Revenue"
           value={summary.totalDealValue}
@@ -279,124 +279,142 @@ const ReportsPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 mb-6 sm:mb-8">
         {/* Deals by Stage */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Deals by Stage
               </h3>
-              <p className="text-sm text-[#2f362f]">
+              <p className="text-xs sm:text-sm text-[#2f362f]">
                 Current pipeline distribution
               </p>
             </div>
-            <Briefcase className="w-5 h-5 text-blue-600" />
+            <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div className="h-80">
-            <div className="w-full" style={{ height: `${chartHeight}px` }}>
+          <div style={{ height: isMobile ? '280px' : '320px' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart 
+                data={dealsByStage}
+                margin={{
+                  top: 10,
+                  right: 10,
+                  left: isMobile ? -15 : 0,
+                  bottom: isMobile ? 60 : 20
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: isMobile ? 9 : 11, fill: '#4a5568' }}
+                  angle={-45}
+                  textAnchor="end"
+                  height={isMobile ? 70 : 50}
+                  interval={0}
+                  tickMargin={5}
+                />
+                <YAxis 
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }} 
+                  width={isMobile ? 25 : 35}
+                  tickCount={5}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                  formatter={(value) => [`${value} Deals`, 'Count']}
+                />
+                <Bar
+                  dataKey="count"
+                  radius={[4, 4, 0, 0]}
+                  name="Deals"
+                  barSize={isMobile ? 18 : 28}
+                >
+                  {dealsByStage.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS.primary[index % COLORS.primary.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Deals by Status */}
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC]">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
+            <div>
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
+                Deals by Status
+              </h3>
+              <p className="text-xs sm:text-sm text-[#2f362f]">
+                Status distribution of all deals
+              </p>
+            </div>
+            <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+          </div>
+          <div style={{ height: isMobile ? '280px' : '320px' }}>
+            {dealsByStatus.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={dealsByStage}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                  <XAxis
-                    dataKey="name"
-                    tick={{ fontSize: isMobile ? 10 : 12 }}
-                    angle={xAxisAngle}
-                    textAnchor={isMobile ? 'end' : 'middle'}
-                    height={isMobile ? 100 : 80}
-                    interval={0}
-                    minTickGap={isMobile ? -10 : 0}
-                  />
-                  <YAxis tick={{ fontSize: 12 }} />
+                <PieChart>
+                  <Pie
+                    data={dealsByStatus}
+                    cx="50%"
+                    cy={isMobile ? "40%" : "45%"}
+                    labelLine={false}
+                    outerRadius={isMobile ? 70 : 90}
+                    innerRadius={isMobile ? 35 : 45}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {dealsByStatus.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={
+                          entry.name === "Won" || entry.name === "Closed Won"
+                            ? COLORS.success
+                            : entry.name === "Active"
+                            ? COLORS.info
+                            : entry.name === "Lost" || entry.name === "Closed Lost"
+                            ? COLORS.danger
+                            : COLORS.primary[index % COLORS.primary.length]
+                        }
+                        stroke="#fff"
+                        strokeWidth={1}
+                      />
+                    ))}
+                  </Pie>
                   <Tooltip
+                    formatter={(value, name) => [`${value} Deals`, name]}
                     contentStyle={{
                       backgroundColor: "#fff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "8px",
                       boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                      fontSize: '12px',
+                      padding: '8px 12px'
                     }}
                   />
-                  <Bar
-                    dataKey="count"
-                    fill="#667eea"
-                    radius={[4, 4, 0, 0]}
-                    name="Number of Deals"
-                    barSize={barSize}
-                    style={{
-                      filter: 'drop-shadow(0 2px 2px rgba(102, 126, 234, 0.2))'
+                  <Legend 
+                    layout="horizontal"
+                    verticalAlign="bottom"
+                    align="center"
+                    wrapperStyle={{
+                      paddingTop: '10px',
+                      fontSize: isMobile ? '10px' : '12px'
                     }}
-                  >
-                    {dealsByStage.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS.primary[index % COLORS.primary.length]}
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
+                    iconSize={isMobile ? 8 : 10}
+                  />
+                </PieChart>
               </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-
-        {/* Deals by Status */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC]">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
-                Deals by Status
-              </h3>
-              <p className="text-sm text-[#2f362f]">
-                Status distribution of all deals
-              </p>
-            </div>
-            <TrendingUp className="w-5 h-5 text-green-600" />
-          </div>
-          <div className="h-80">
-            {dealsByStatus.length > 0 ? (
-              <div className="w-full" style={{ height: `${chartHeight}px` }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={dealsByStatus}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, percent }) =>
-                        isMobile ? `${(percent * 100).toFixed(0)}%` : `${name} ${(percent * 100).toFixed(0)}%`
-                      }
-                      outerRadius={pieOuterRadius}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {dealsByStatus.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            entry.name === "Won"
-                              ? COLORS.success
-                              : entry.name === "Active"
-                              ? COLORS.info
-                              : entry.name === "Lost"
-                              ? COLORS.danger
-                              : COLORS.primary[index % COLORS.primary.length]
-                          }
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value, name, props) => [value, `${name} Deals`]}
-                      contentStyle={{
-                        backgroundColor: "#fff",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "8px",
-                        boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                      }}
-                    />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
             ) : (
               <div className="h-full flex items-center justify-center text-[#2f362f]">
                 No deal data available
@@ -407,99 +425,111 @@ const ReportsPage = () => {
       </div>
 
       {/* Tasks Overview and Recent Activity in a row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 mb-6 sm:mb-8">
         {/* Tasks Overview */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC] h-full">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC] h-full">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">Tasks Overview</h3>
-              <p className="text-sm text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">Tasks Overview</h3>
+              <p className="text-xs sm:text-sm text-[#2f362f]">
                 Distribution of tasks by status
               </p>
             </div>
-            <CheckCircle className="w-5 h-5 text-blue-600" />
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div className="h-64">
-            <div className="w-full" style={{ height: `${chartHeight}px` }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={tasksByStatus}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                  <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-                  <YAxis tick={{ fontSize: 12 }} />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#fff",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    }}
-                  />
-                  <Bar
-                    dataKey="count"
-                    radius={[4, 4, 0, 0]}
-                    name="Number of Tasks"
-                    barSize={barSize}
-                    style={{
-                      filter: 'drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1))'
-                    }}
-                  >
-                    {tasksByStatus.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={
-                          COLORS.taskStatus[entry.name] ||
-                          COLORS.primary[index % COLORS.primary.length]
-                        }
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+          <div style={{ height: isMobile ? '250px' : '280px' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart 
+                data={tasksByStatus}
+                margin={{
+                  top: 10,
+                  right: 10,
+                  left: isMobile ? -15 : 0,
+                  bottom: 5
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <XAxis 
+                  dataKey="name" 
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }}
+                  tickLine={false}
+                />
+                <YAxis 
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }}
+                  width={isMobile ? 25 : 35}
+                  tickCount={5}
+                  axisLine={false}
+                  tickLine={false}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    fontSize: '12px',
+                    padding: '8px 12px'
+                  }}
+                  formatter={(value) => [`${value} Tasks`, 'Count']}
+                />
+                <Bar
+                  dataKey="count"
+                  radius={[4, 4, 0, 0]}
+                  name="Tasks"
+                  barSize={isMobile ? 30 : 40}
+                >
+                  {tasksByStatus.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={
+                        COLORS.taskStatus[entry.name] ||
+                        COLORS.primary[index % COLORS.primary.length]
+                      }
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-[#FEFDFC] rounded-lg p-6 shadow-sm border border-[#BCC8BC] h-full">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC] h-full">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-lg font-bold text-[#2f362f]">
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Recent Activity
               </h3>
-              <p className="text-sm text-[#2f362f]">
+              <p className="text-xs sm:text-sm text-[#2f362f]">
                 Latest updates across the system
               </p>
             </div>
-            <Clock className="w-5 h-5 text-[#2f362f]" />
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]" />
           </div>
-          <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 hover:scrollbar-thumb-gray-400 transition-colors duration-200">
+          <div className="space-y-2 sm:space-y-3 max-h-[280px] overflow-y-auto">
             {[...deals, ...tasks, ...clients].slice(0, 5).map((item, index) => (
               <div
                 key={index}
-                className="flex items-start p-3 rounded-lg transition-colors hover:bg-gray-50 border border-transparent hover:border-gray-200"
+                className="flex items-start p-2 sm:p-3 rounded-lg transition-colors hover:bg-gray-50 border border-transparent hover:border-gray-200"
               >
-                <div className="p-2 bg-blue-50 rounded-lg mr-4 flex-shrink-0 border border-blue-100">
+                <div className="p-1.5 sm:p-2 bg-blue-50 rounded-lg mr-2 sm:mr-3 flex-shrink-0 border border-blue-100">
                   {item.dealName ? (
-                    <Briefcase className="w-5 h-5 text-blue-600" />
+                    <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   ) : item.title ? (
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                   ) : (
-                    <Users className="w-5 h-5 text-purple-600" />
+                    <Users className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-medium text-[#2f362f] truncate">
+                  <h4 className="text-sm sm:text-base font-medium text-[#2f362f] truncate">
                     {item.dealName || item.title || item.name || "New item"}
                   </h4>
-                  <p className="text-sm text-[#2f362f] truncate">
-                    {item.status && `Status: ${item.status} • `}
-                    {item.dealValue && `Value: ${item.dealValue} • `}
-                    {item.dueDate && `Due: ${item.dueDate}`}
+                  <p className="text-xs sm:text-sm text-[#2f362f]/70 truncate">
+                    {item.status && `${item.status}`}
+                    {item.dealValue && ` • ${item.dealValue}`}
                   </p>
                 </div>
-                <span className="text-xs text-[#2f362f] whitespace-nowrap ml-2 text-opacity-70">
-                  {new Date().toLocaleDateString()}
-                </span>
               </div>
             ))}
           </div>
