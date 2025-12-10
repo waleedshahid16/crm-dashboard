@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
-  Legend
+  Legend,
 } from "recharts";
 import {
   TrendingUp,
@@ -27,7 +27,7 @@ import {
   Award,
   Activity,
   Clock,
-  CheckCircle2
+  CheckCircle2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -40,21 +40,23 @@ const selectAllTasks = (state) => state?.tasks?.tasks || [];
 const AnalyticsPage = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1024);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth < 1024
+  );
 
   // Responsive settings
   const chartHeight = isMobile ? 250 : isTablet ? 300 : 350;
-  const barSize = isMobile ? 20 : 30;
+  const barSize = isMobile ? 16 : 24;
   const pieOuterRadius = isMobile ? 80 : isTablet ? 90 : 100;
   const xAxisAngle = isMobile ? -90 : -45;
   const legendProps = {
-    layout: isMobile ? 'horizontal' : 'vertical',
-    verticalAlign: isMobile ? 'bottom' : 'middle',
-    align: isMobile ? 'center' : 'right',
+    layout: isMobile ? "horizontal" : "vertical",
+    verticalAlign: isMobile ? "bottom" : "middle",
+    align: isMobile ? "center" : "right",
     wrapperStyle: {
-      paddingTop: isMobile ? '10px' : '0',
-      paddingLeft: isMobile ? '0' : '20px'
-    }
+      paddingTop: isMobile ? "10px" : "0",
+      paddingLeft: isMobile ? "0" : "20px",
+    },
   };
 
   useEffect(() => {
@@ -63,8 +65,8 @@ const AnalyticsPage = () => {
       setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   // Get data from Redux
   const clients = useSelector(selectAllClients);
@@ -229,9 +231,15 @@ const AnalyticsPage = () => {
             </span>
           )}
         </div>
-        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">{value}</h3>
+        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">
+          {value}
+        </h3>
         <p className="text-xs sm:text-sm text-[#2f362f]">{title}</p>
-        {subtitle && <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">
+            {subtitle}
+          </p>
+        )}
       </div>
     );
   };
@@ -319,37 +327,49 @@ const AnalyticsPage = () => {
             </div>
             <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
+          <div
+            className="w-full"
+            style={{ height: isMobile ? "280px" : `${chartHeight}px` }}
+          >
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
+              <BarChart
                 data={dealsByStage}
                 margin={{
                   top: 10,
                   right: 10,
                   left: isMobile ? -15 : 0,
-                  bottom: isMobile ? 60 : 20
+                  bottom: isMobile ? 60 : 20,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  vertical={false}
+                  strokeLinecap="round"
+                />
                 <XAxis
                   dataKey="name"
                   tick={{
                     fontSize: isMobile ? 9 : 11,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   angle={-45}
                   textAnchor="end"
                   height={isMobile ? 70 : 50}
                   interval={0}
                   tickMargin={5}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
-                <YAxis 
-                  tick={{ 
+                <YAxis
+                  tick={{
                     fontSize: isMobile ? 10 : 12,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   width={isMobile ? 25 : 35}
                   tickCount={5}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <Tooltip
                   contentStyle={{
@@ -357,20 +377,20 @@ const AnalyticsPage = () => {
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
-                  formatter={(value) => [`${value} Deals`, 'Count']}
+                  formatter={(value) => [`${value} Deals`, "Count"]}
                 />
-                <Bar 
-                  dataKey="count" 
+                <Bar
+                  dataKey="count"
                   name="Deals"
                   radius={[4, 4, 0, 0]}
-                  barSize={isMobile ? 18 : 28}
+                  barSize={isMobile ? 14 : 22}
                 >
                   {dealsByStage.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
+                    <Cell
+                      key={`cell-${index}`}
                       fill={COLORS.primary[index % COLORS.primary.length]}
                     />
                   ))}
@@ -387,11 +407,16 @@ const AnalyticsPage = () => {
               <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Deals by Status
               </h3>
-              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">Status distribution</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">
+                Status distribution
+              </p>
             </div>
             <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
           </div>
-          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
+          <div
+            className="w-full"
+            style={{ height: isMobile ? "280px" : `${chartHeight}px` }}
+          >
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -405,32 +430,32 @@ const AnalyticsPage = () => {
                   dataKey="value"
                 >
                   {dealsByStatus.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
+                    <Cell
+                      key={`cell-${index}`}
                       fill={COLORS.primary[index % COLORS.primary.length]}
                       stroke="#fff"
                       strokeWidth={1}
                     />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   formatter={(value, name) => [`${value} Deals`, name]}
                   contentStyle={{
                     backgroundColor: "#fff",
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
                 />
-                <Legend 
+                <Legend
                   layout="horizontal"
                   verticalAlign="bottom"
                   align="center"
                   wrapperStyle={{
-                    paddingTop: '10px',
-                    fontSize: isMobile ? '10px' : '12px'
+                    paddingTop: "10px",
+                    fontSize: isMobile ? "10px" : "12px",
                   }}
                   iconSize={isMobile ? 8 : 10}
                 />
@@ -455,15 +480,18 @@ const AnalyticsPage = () => {
             </div>
             <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
           </div>
-          <div className="w-full" style={{ height: isMobile ? '220px' : `${chartHeight}px` }}>
+          <div
+            className="w-full"
+            style={{ height: isMobile ? "220px" : `${chartHeight}px` }}
+          >
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart 
+              <AreaChart
                 data={monthlyTrend}
                 margin={{
                   top: 10,
                   right: 10,
                   left: isMobile ? -15 : 0,
-                  bottom: 5
+                  bottom: 5,
                 }}
               >
                 <defs>
@@ -472,24 +500,33 @@ const AnalyticsPage = () => {
                     <stop offset="95%" stopColor="#667eea" stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis 
-                  dataKey="month" 
-                  tick={{ 
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  vertical={false}
+                  strokeLinecap="round"
+                />
+                <XAxis
+                  dataKey="month"
+                  tick={{
                     fontSize: isMobile ? 10 : 12,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   tickLine={false}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
-                <YAxis 
-                  tick={{ 
+                <YAxis
+                  tick={{
                     fontSize: isMobile ? 10 : 12,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   width={isMobile ? 25 : 35}
                   tickCount={5}
                   axisLine={false}
                   tickLine={false}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <Tooltip
                   contentStyle={{
@@ -497,20 +534,26 @@ const AnalyticsPage = () => {
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
-                  formatter={(value) => [`${value} Deals`, 'Count']}
+                  formatter={(value) => [`${value} Deals`, "Count"]}
                 />
                 <Area
                   type="monotone"
                   dataKey="deals"
                   name="Deals"
                   stroke="#667eea"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   fillOpacity={1}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   fill="url(#colorDeals)"
-                  activeDot={{ r: isMobile ? 4 : 6, strokeWidth: 0, fill: '#667eea' }}
+                  activeDot={{
+                    r: isMobile ? 3 : 4,
+                    strokeWidth: 0,
+                    fill: "#667eea",
+                  }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -524,42 +567,56 @@ const AnalyticsPage = () => {
               <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
                 Companies by Industry
               </h3>
-              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">Top 6 industries</p>
+              <p className="text-xs sm:text-sm text-[#2f362f] mt-1">
+                Top 6 industries
+              </p>
             </div>
             <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
           </div>
-          <div className="w-full" style={{ height: isMobile ? '280px' : `${chartHeight}px` }}>
+          <div
+            className="w-full"
+            style={{ height: isMobile ? "280px" : `${chartHeight}px` }}
+          >
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
-                data={companiesByIndustry} 
+              <BarChart
+                data={companiesByIndustry}
                 layout="vertical"
                 margin={{
                   top: 5,
                   right: 15,
                   left: isMobile ? 5 : 10,
-                  bottom: 5
+                  bottom: 5,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
-                <XAxis 
-                  type="number" 
-                  tick={{ 
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  horizontal={false}
+                  strokeLinecap="round"
+                />
+                <XAxis
+                  type="number"
+                  tick={{
                     fontSize: isMobile ? 10 : 12,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   tickCount={4}
                   hide={isMobile}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <YAxis
                   dataKey="name"
                   type="category"
-                  tick={{ 
+                  tick={{
                     fontSize: isMobile ? 10 : 11,
-                    fill: '#4a5568'
+                    fill: "#4a5568",
                   }}
                   width={isMobile ? 70 : 80}
                   tickLine={false}
                   axisLine={false}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <Tooltip
                   contentStyle={{
@@ -567,20 +624,20 @@ const AnalyticsPage = () => {
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
-                  formatter={(value) => [`${value} Companies`, 'Count']}
+                  formatter={(value) => [`${value} Companies`, "Count"]}
                 />
-                <Bar 
-                  dataKey="value" 
+                <Bar
+                  dataKey="value"
                   name="Companies"
                   radius={[0, 4, 4, 0]}
-                  barSize={isMobile ? 16 : 22}
+                  barSize={isMobile ? 14 : 20}
                 >
                   {companiesByIndustry.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
+                    <Cell
+                      key={`cell-${index}`}
                       fill={COLORS.primary[index % COLORS.primary.length]}
                     />
                   ))}

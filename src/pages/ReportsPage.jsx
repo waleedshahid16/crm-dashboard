@@ -40,10 +40,12 @@ const selectAllTasks = (state) => state?.tasks?.tasks || [];
 const ReportsPage = () => {
   // Navigation
   const navigate = useNavigate();
-  
+
   // Responsive state
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1024);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= 768 && window.innerWidth < 1024
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,16 +53,16 @@ const ReportsPage = () => {
       setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Chart responsive settings
+  // Chart responsive settings - THIN BARS FOR ALL SCREENS
   const chartHeight = isMobile ? 250 : 300;
-  const barSize = isMobile ? 20 : 30;
+  const barSize = isMobile ? 12 : 18; // Reduced from 14:22 to 12:18
   const pieOuterRadius = isMobile ? 80 : 100;
   const xAxisAngle = isMobile ? -90 : -45;
-  
+
   // Get data from Redux
   const clients = useSelector(selectAllClients);
   const companies = useSelector(selectAllCompanies);
@@ -198,9 +200,15 @@ const ReportsPage = () => {
             </span>
           )}
         </div>
-        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">{value}</h3>
+        <h3 className="text-lg sm:text-2xl font-bold text-[#2f362f] mb-0.5">
+          {value}
+        </h3>
         <p className="text-xs sm:text-sm text-[#2f362f]">{title}</p>
-        {subtitle && <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-[10px] sm:text-xs text-[#2f362f]/70 mt-0.5 hidden sm:block">
+            {subtitle}
+          </p>
+        )}
       </div>
     );
   };
@@ -210,8 +218,8 @@ const ReportsPage = () => {
       {/* Header */}
       <div className="mb-6 sm:mb-8">
         <div className="flex items-center gap-2 text-xs sm:text-sm text-[#2f362f] mb-2 sm:mb-3">
-          <button 
-            onClick={() => navigate('/')}
+          <button
+            onClick={() => navigate("/")}
             className="hover:text-[#2f362f]/60 transition-colors"
           >
             Dashboard
@@ -293,31 +301,40 @@ const ReportsPage = () => {
             </div>
             <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div style={{ height: isMobile ? '280px' : '320px' }}>
+          <div style={{ height: isMobile ? "280px" : "320px" }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
+              <BarChart
                 data={dealsByStage}
                 margin={{
                   top: 10,
                   right: 10,
                   left: isMobile ? -15 : 0,
-                  bottom: isMobile ? 60 : 20
+                  bottom: isMobile ? 60 : 20,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  vertical={false}
+                  strokeLinecap="round"
+                />
                 <XAxis
                   dataKey="name"
-                  tick={{ fontSize: isMobile ? 9 : 11, fill: '#4a5568' }}
+                  tick={{ fontSize: isMobile ? 9 : 11, fill: "#4a5568" }}
                   angle={-45}
                   textAnchor="end"
                   height={isMobile ? 70 : 50}
                   interval={0}
                   tickMargin={5}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
-                <YAxis 
-                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }} 
+                <YAxis
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: "#4a5568" }}
                   width={isMobile ? 25 : 35}
                   tickCount={5}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <Tooltip
                   contentStyle={{
@@ -325,16 +342,16 @@ const ReportsPage = () => {
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
-                  formatter={(value) => [`${value} Deals`, 'Count']}
+                  formatter={(value) => [`${value} Deals`, "Count"]}
                 />
                 <Bar
                   dataKey="count"
                   radius={[4, 4, 0, 0]}
                   name="Deals"
-                  barSize={isMobile ? 18 : 28}
+                  barSize={barSize}
                 >
                   {dealsByStage.map((entry, index) => (
                     <Cell
@@ -361,7 +378,7 @@ const ReportsPage = () => {
             </div>
             <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
           </div>
-          <div style={{ height: isMobile ? '280px' : '320px' }}>
+          <div style={{ height: isMobile ? "280px" : "320px" }}>
             {dealsByStatus.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -383,7 +400,8 @@ const ReportsPage = () => {
                             ? COLORS.success
                             : entry.name === "Active"
                             ? COLORS.info
-                            : entry.name === "Lost" || entry.name === "Closed Lost"
+                            : entry.name === "Lost" ||
+                              entry.name === "Closed Lost"
                             ? COLORS.danger
                             : COLORS.primary[index % COLORS.primary.length]
                         }
@@ -399,17 +417,17 @@ const ReportsPage = () => {
                       border: "1px solid #e2e8f0",
                       borderRadius: "8px",
                       boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                      fontSize: '12px',
-                      padding: '8px 12px'
+                      fontSize: "12px",
+                      padding: "8px 12px",
                     }}
                   />
-                  <Legend 
+                  <Legend
                     layout="horizontal"
                     verticalAlign="bottom"
                     align="center"
                     wrapperStyle={{
-                      paddingTop: '10px',
-                      fontSize: isMobile ? '10px' : '12px'
+                      paddingTop: "10px",
+                      fontSize: isMobile ? "10px" : "12px",
                     }}
                     iconSize={isMobile ? 8 : 10}
                   />
@@ -430,36 +448,47 @@ const ReportsPage = () => {
         <div className="bg-[#FEFDFC] rounded-lg p-4 sm:p-6 shadow-sm border border-[#BCC8BC] h-full">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">Tasks Overview</h3>
+              <h3 className="text-base sm:text-lg font-bold text-[#2f362f]">
+                Tasks Overview
+              </h3>
               <p className="text-xs sm:text-sm text-[#2f362f]">
                 Distribution of tasks by status
               </p>
             </div>
             <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
           </div>
-          <div style={{ height: isMobile ? '250px' : '280px' }}>
+          <div style={{ height: isMobile ? "250px" : "280px" }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart 
+              <BarChart
                 data={tasksByStatus}
                 margin={{
                   top: 10,
                   right: 10,
                   left: isMobile ? -15 : 0,
-                  bottom: 5
+                  bottom: 5,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis 
-                  dataKey="name" 
-                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }}
-                  tickLine={false}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f1f5f9"
+                  vertical={false}
+                  strokeLinecap="round"
                 />
-                <YAxis 
-                  tick={{ fontSize: isMobile ? 10 : 12, fill: '#4a5568' }}
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: "#4a5568" }}
+                  tickLine={false}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
+                />
+                <YAxis
+                  tick={{ fontSize: isMobile ? 10 : 12, fill: "#4a5568" }}
                   width={isMobile ? 25 : 35}
                   tickCount={5}
                   axisLine={false}
                   tickLine={false}
+                  stroke="#e2e8f0"
+                  strokeLinecap="round"
                 />
                 <Tooltip
                   contentStyle={{
@@ -467,16 +496,16 @@ const ReportsPage = () => {
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
                     boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                    fontSize: '12px',
-                    padding: '8px 12px'
+                    fontSize: "12px",
+                    padding: "8px 12px",
                   }}
-                  formatter={(value) => [`${value} Tasks`, 'Count']}
+                  formatter={(value) => [`${value} Tasks`, "Count"]}
                 />
                 <Bar
                   dataKey="count"
                   radius={[4, 4, 0, 0]}
                   name="Tasks"
-                  barSize={isMobile ? 30 : 40}
+                  barSize={isMobile ? 20 : 28}
                 >
                   {tasksByStatus.map((entry, index) => (
                     <Cell
