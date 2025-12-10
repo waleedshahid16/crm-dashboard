@@ -401,7 +401,7 @@ const TasksPage = () => {
               >
                 <Plus className="w-4 h-4" />
                 <span className="hidden sm:inline">Add Task</span>
-                <span className="sm:hidden">Add</span>
+                <span className="sm:hidden">Add Task</span>
               </button>
             </div>
           </div>

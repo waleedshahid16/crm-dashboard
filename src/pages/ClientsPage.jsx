@@ -186,7 +186,7 @@ const ClientsPage = () => {
               >
                 <UserPlus className="w-4 h-4" />
                 <span className="hidden sm:inline">Add Client</span>
-                <span className="sm:hidden">Add</span>
+                <span className="sm:hidden">Add Client</span>
               </button>
             </div>
           </div>

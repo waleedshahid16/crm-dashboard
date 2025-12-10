@@ -195,7 +195,7 @@ const DealsPage = () => {
               >
                 <Plus className="w-4 h-4" />
                 <span className="hidden sm:inline">Add Deal</span>
-                <span className="sm:hidden">Add</span>
+                <span className="sm:hidden">Add Deal</span>
               </button>
             </div>
           </div>
