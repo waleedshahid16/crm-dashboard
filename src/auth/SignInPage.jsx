@@ -193,7 +193,7 @@ const SignInPage = () => {
                 <div className="w-full border-t border-[#BCC8BC]"></div>
               </div>
               <div className="relative flex justify-center text-xs sm:text-sm">
-                <span className="px-3 sm:px-4 bg-[#DDE2E3] md:bg-[#DDE2E3] lg:bg-[#f8faf9] text-[#2f362f]">
+                <span className="px-3 sm:px-4 bg-[#DADADA] md:bg-[#CECECE] lg:bg-[#f8faf9] text-[#2f362f]">
                   Or continue with
                 </span>
               </div>
