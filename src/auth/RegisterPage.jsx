@@ -337,7 +337,7 @@ const RegisterPage = () => {
                 <div className="w-full border-t border-[#BCC8BC]"></div>
               </div>
               <div className="relative flex justify-center text-xs sm:text-sm">
-                <span className="px-2 sm:px-2.5 bg-[#f8faf9] lg:bg-[#f8faf9] text-[#2f362f]">
+                <span className="px-2 sm:px-2.5 bg-white/85 md:bg-white/80 lg:bg-[#f8faf9] text-[#2f362f]">
                   Or sign up with
                 </span>
               </div>
