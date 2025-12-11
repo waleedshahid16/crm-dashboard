@@ -9,11 +9,8 @@ import {
   Eye,
   EyeOff,
   Users,
-  TrendingUp,
-  BarChart3,
-  Target,
 } from "lucide-react";
-import SignInImg from "../assets/sign-in-pic/crm.webp"
+import SignInImg from "../assets/sign-in-pic/crm.webp";
 
 // Validation Schema for Sign In
 const signInSchema = yup
@@ -47,7 +44,6 @@ const SignInPage = () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("Sign In Data:", data);
-      // Navigate to dashboard
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
@@ -55,7 +51,6 @@ const SignInPage = () => {
   };
 
   const handleGoogleSignIn = () => {
-    // Handle Google OAuth then navigate to dashboard
     navigate("/");
   };
 
@@ -64,55 +59,67 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="relative flex min-h-screen">
+      {/* Background Image for Mobile/Tablet - Full screen behind form */}
+      <div className="absolute inset-0 z-0 lg:hidden">
+        <img
+          src={SignInImg}
+          alt="CRM Dashboard"
+          className="object-cover w-full h-full"
+        />
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/30"></div>
+      </div>
+
       {/* Left Side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-[#f8faf9]">
-        <div className="w-full max-w-md">
+      <div className="relative z-10 flex items-center justify-center w-full p-4 lg:w-1/2 sm:p-6 md:p-8">
+        {/* Form Container with transparency for mobile/tablet */}
+        <div className="w-full max-w-md p-6 shadow-2xl bg-white/95 lg:bg-white backdrop-blur-sm lg:backdrop-blur-none rounded-2xl lg:rounded-none lg:shadow-none sm:p-8 md:p-10">
           {/* Logo/Brand */}
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-12 h-12 bg-[#2f362f] rounded-full flex items-center justify-center shadow-lg">
-                <Users className="w-7 h-7 text-white" />
+          <div className="mb-4 sm:mb-6">
+            <div className="flex items-center gap-2 mb-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#2f362f] rounded-full flex items-center justify-center shadow-lg">
+                <Users className="w-5 h-5 text-white sm:w-6 sm:h-6 md:w-7 md:h-7" />
               </div>
-              <span className="text-2xl font-bold text-[#2f362f]">
+              <span className="text-xl sm:text-2xl font-bold text-[#2f362f]">
                 ClientHub
               </span>
             </div>
-            <p className="text-[#2f362f]/80 text-sm ml-1">
+            <p className="text-[#2f362f]/80 text-xs sm:text-sm ml-1">
               Your Business Growth Partner
             </p>
           </div>
 
           {/* Welcome Text */}
-          <div className="mb-6">
-            <h1 className="text-3xl font-bold text-[#2f362f] mb-2">
+          <div className="mb-4 sm:mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#2f362f] mb-2">
               WELCOME BACK
             </h1>
-            <p className="text-[#2f362f]/80">
+            <p className="text-[#2f362f]/80 text-sm sm:text-base">
               Welcome back! Please enter your details.
             </p>
           </div>
 
           {/* Form */}
-          <div className="space-y-3">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4">
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#2f362f]" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]" />
                 <input
                   type="email"
                   {...register("email")}
                   placeholder="Enter your email"
-                  className={`w-full pl-11 pr-4 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  className={`w-full pl-9 sm:pl-11 pr-4 py-2 sm:py-2.5 text-sm sm:text-base border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.email ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
               </div>
               {errors.email && (
-                <p className="text-xs text-red-500 mt-1">
+                <p className="mt-1 text-xs text-red-500">
                   {errors.email.message}
                 </p>
               )}
@@ -120,16 +127,16 @@ const SignInPage = () => {
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-semibold text-[#2f362f] mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-[#2f362f] mb-1.5 sm:mb-2">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#2f362f]" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-[#2f362f]" />
                 <input
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-                  className={`w-full pl-11 pr-12 py-2 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
+                  placeholder="••••••••••"
+                  className={`w-full pl-9 sm:pl-11 pr-10 sm:pr-12 py-2 sm:py-2.5 text-sm sm:text-base border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#788978] focus:border-transparent transition-all ${
                     errors.password ? "border-red-500" : "border-[#BCC8BC]"
                   }`}
                 />
@@ -139,14 +146,14 @@ const SignInPage = () => {
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[#2f362f] hover:text-[#788978]"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
                   )}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs text-red-500 mt-1">
+                <p className="mt-1 text-xs text-red-500">
                   {errors.password.message}
                 </p>
               )}
@@ -161,11 +168,11 @@ const SignInPage = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 border-2 border-[#BCC8BC] rounded focus:ring-2 focus:ring-[#788978] text-[#2f362f]"
                 />
-                <span className="text-sm text-[#2f362f]">Remember me</span>
+                <span className="text-xs sm:text-sm text-[#2f362f]">Remember me</span>
               </label>
               <button
                 type="button"
-                className="text-sm font-semibold text-[#2f362f] hover:text-[#788978] transition-colors"
+                className="text-xs sm:text-sm font-semibold text-[#2f362f] hover:text-[#788978] transition-colors"
               >
                 Forgot password?
               </button>
@@ -173,9 +180,9 @@ const SignInPage = () => {
 
             {/* Sign In Button */}
             <button
-              onClick={handleSubmit(onSubmit)}
+              type="submit"
               disabled={isSubmitting}
-              className="w-full  bg-[#2f362f]  text-white py-2 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#2f362f] text-white py-2 sm:py-2.5 rounded-md font-semibold hover:opacity-90 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {isSubmitting ? "Signing in..." : "Sign in"}
             </button>
@@ -185,8 +192,8 @@ const SignInPage = () => {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-[#BCC8BC]"></div>
               </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-[#f8faf9] text-[#2f362f]">
+              <div className="relative flex justify-center text-xs sm:text-sm">
+                <span className="px-3 sm:px-4 bg-white/95 lg:bg-[#f8faf9] text-[#2f362f]">
                   Or continue with
                 </span>
               </div>
@@ -196,9 +203,9 @@ const SignInPage = () => {
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-3 py-2 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all"
+              className="w-full flex items-center justify-center gap-2 sm:gap-3 py-2 sm:py-2.5 border-2 border-[#BCC8BC] rounded-md font-semibold text-[#2f362f] hover:bg-[#FEFDFC] transition-all text-sm sm:text-base"
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -218,14 +225,14 @@ const SignInPage = () => {
               </svg>
               Sign in with Google
             </button>
-          </div>
+          </form>
 
           {/* Sign Up Link */}
-          <p className="text-center mt-6 text-sm text-[#2f362f]">
+          <p className="text-center mt-4 sm:mt-6 text-xs sm:text-sm text-[#2f362f]">
             Don't have an account?{" "}
             <button
               onClick={goToRegister}
-              className="font-bold text-[#2f362f] hover:text-[#788978] transition-colors"
+              className="font-bold text-[#2f362f] hover:text-[#788978] transition-colors underline"
             >
               Sign up for free!
             </button>
@@ -233,13 +240,12 @@ const SignInPage = () => {
         </div>
       </div>
 
-      {/* Right Side - Image */}
+      {/* Right Side - Image (Desktop Only) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#2f362f]">
-        {/* CRM Image - Full coverage */}
         <img
           src={SignInImg}
           alt="CRM Dashboard"
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
         />
       </div>
     </div>
